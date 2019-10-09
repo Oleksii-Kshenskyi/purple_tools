@@ -1,7 +1,7 @@
 import unittest
 from scripts.time.utils.checks import is_valid_time_string
 
-class TestTimeCalculation(unittest.TestCase):
+class TestTimeChecks(unittest.TestCase):
   
   def setUp(self):
     pass

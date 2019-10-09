@@ -1,0 +1,1 @@
+VALID_TIMESTRING_REGEX = r'^(\d)+:(\d)+:(\d)+$'
