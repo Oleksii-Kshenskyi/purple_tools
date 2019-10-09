@@ -1,2 +1,2 @@
-def add(a, b):
-  return a + b;
+def construct_uniform_time_string(source):
+  return ""
