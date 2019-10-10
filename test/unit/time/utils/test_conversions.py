@@ -3,6 +3,7 @@ from datetime import timedelta
 
 from scripts.time.utils.conversions import check_float_validity_and_convert_from_string
 from scripts.time.utils.conversions import convert_float_to_timedelta
+from scripts.time.utils.conversions import convert_time_string_to_timedelta
 from scripts.time.utils.constants import TIME_UNIT_LENGTH_IN_SECONDS
   
 class TestConversions(unittest.TestCase):
@@ -29,6 +30,17 @@ class TestConversions(unittest.TestCase):
 
     self.assertEqual(None, convert_float_to_timedelta(-5.46))
     self.assertEqual(None, convert_float_to_timedelta("344"))
+
+  def test_converts_time_string_to_timedelta(self):
+    self.assertEqual(timedelta(hours = 2, minutes = 53, seconds = 13), convert_time_string_to_timedelta("02:53:13"))
+    self.assertEqual(timedelta(hours = 34, minutes = 3658, seconds = 553421), convert_time_string_to_timedelta("34:3658:553421"))
+    self.assertEqual(timedelta(hours = 1, minutes = 2, seconds = 3), convert_time_string_to_timedelta("1:2:3"))
+
+    self.assertEqual(None, convert_time_string_to_timedelta("-02:03:45"))
+    self.assertEqual(None, convert_time_string_to_timedelta("02:03:04:05"))
+    self.assertEqual(None, convert_time_string_to_timedelta("02-03-11"))
+    self.assertEqual(None, convert_time_string_to_timedelta("0k:12:48"))
+    self.assertEqual(None, convert_time_string_to_timedelta("@@:$$:!!"))
 
   def tearDown(self):
     pass
