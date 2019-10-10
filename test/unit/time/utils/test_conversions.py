@@ -4,11 +4,31 @@ from datetime import timedelta
 from scripts.time.utils.conversions import check_float_validity_and_convert_from_string
 from scripts.time.utils.conversions import convert_float_to_timedelta
 from scripts.time.utils.conversions import convert_time_string_to_timedelta
+from scripts.time.utils.conversions import convert_to_timedelta
 from scripts.time.utils.constants import TIME_UNIT_LENGTH_IN_SECONDS
   
 class TestConversions(unittest.TestCase):
   def setUp(self):
     pass
+
+  def __float_conversion_test(self, test_func):
+    self.assertEqual(timedelta(seconds = 34.156 * TIME_UNIT_LENGTH_IN_SECONDS), test_func(34.156))
+    self.assertEqual(timedelta(seconds = 0 * TIME_UNIT_LENGTH_IN_SECONDS), test_func(0.0))
+    self.assertEqual(timedelta(seconds = 3 * TIME_UNIT_LENGTH_IN_SECONDS), test_func(3.0))
+
+    self.assertEqual(None, test_func(-5.46))
+    self.assertEqual(None, test_func("344"))
+
+  def __time_string_conversion_test(self, test_func):
+    self.assertEqual(timedelta(hours = 2, minutes = 53, seconds = 13), test_func("02:53:13"))
+    self.assertEqual(timedelta(hours = 34, minutes = 3658, seconds = 553421), test_func("34:3658:553421"))
+    self.assertEqual(timedelta(hours = 1, minutes = 2, seconds = 3), test_func("1:2:3"))
+
+    self.assertEqual(None, test_func("-02:03:45"))
+    self.assertEqual(None, test_func("02:03:04:05"))
+    self.assertEqual(None, test_func("02-03-11"))
+    self.assertEqual(None, test_func("0k:12:48"))
+    self.assertEqual(None, test_func("@@:$$:!!"))
 
   def test_checks_float_validity(self):
     self.assertEqual(0.0, check_float_validity_and_convert_from_string("0"))
@@ -24,23 +44,14 @@ class TestConversions(unittest.TestCase):
     self.assertEqual(None, check_float_validity_and_convert_from_string("7.554!"))
 
   def test_converts_float_to_timedelta(self):
-    self.assertEqual(timedelta(seconds = 34.156 * TIME_UNIT_LENGTH_IN_SECONDS), convert_float_to_timedelta(34.156))
-    self.assertEqual(timedelta(seconds = 0 * TIME_UNIT_LENGTH_IN_SECONDS), convert_float_to_timedelta(0.0))
-    self.assertEqual(timedelta(seconds = 3 * TIME_UNIT_LENGTH_IN_SECONDS), convert_float_to_timedelta(3.0))
-
-    self.assertEqual(None, convert_float_to_timedelta(-5.46))
-    self.assertEqual(None, convert_float_to_timedelta("344"))
+    self.__float_conversion_test(test_func = convert_float_to_timedelta)
 
   def test_converts_time_string_to_timedelta(self):
-    self.assertEqual(timedelta(hours = 2, minutes = 53, seconds = 13), convert_time_string_to_timedelta("02:53:13"))
-    self.assertEqual(timedelta(hours = 34, minutes = 3658, seconds = 553421), convert_time_string_to_timedelta("34:3658:553421"))
-    self.assertEqual(timedelta(hours = 1, minutes = 2, seconds = 3), convert_time_string_to_timedelta("1:2:3"))
+    self.__time_string_conversion_test(test_func = convert_time_string_to_timedelta)
 
-    self.assertEqual(None, convert_time_string_to_timedelta("-02:03:45"))
-    self.assertEqual(None, convert_time_string_to_timedelta("02:03:04:05"))
-    self.assertEqual(None, convert_time_string_to_timedelta("02-03-11"))
-    self.assertEqual(None, convert_time_string_to_timedelta("0k:12:48"))
-    self.assertEqual(None, convert_time_string_to_timedelta("@@:$$:!!"))
+  def test_converts_to_timedelta(self):
+    self.__float_conversion_test(test_func = convert_to_timedelta)
+    self.__time_string_conversion_test(test_func = convert_to_timedelta)
 
   def tearDown(self):
     pass
