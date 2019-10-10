@@ -1,5 +1,9 @@
 import unittest
+from datetime import timedelta
+
 from scripts.time.utils.conversions import check_float_validity_and_convert_from_string
+from scripts.time.utils.conversions import convert_float_to_timedelta
+from scripts.time.utils.constants import TIME_UNIT_LENGTH_IN_SECONDS
   
 class TestConversions(unittest.TestCase):
   def setUp(self):
@@ -17,6 +21,14 @@ class TestConversions(unittest.TestCase):
     self.assertEqual(None, check_float_validity_and_convert_from_string("@.36"))
     self.assertEqual(None, check_float_validity_and_convert_from_string("34454..54242"))
     self.assertEqual(None, check_float_validity_and_convert_from_string("7.554!"))
+
+  def test_converts_float_to_timedelta(self):
+    self.assertEqual(timedelta(seconds = 34.156 * TIME_UNIT_LENGTH_IN_SECONDS), convert_float_to_timedelta(34.156))
+    self.assertEqual(timedelta(seconds = 0 * TIME_UNIT_LENGTH_IN_SECONDS), convert_float_to_timedelta(0.0))
+    self.assertEqual(timedelta(seconds = 3 * TIME_UNIT_LENGTH_IN_SECONDS), convert_float_to_timedelta(3.0))
+
+    self.assertEqual(None, convert_float_to_timedelta(-5.46))
+    self.assertEqual(None, convert_float_to_timedelta("344"))
 
   def tearDown(self):
     pass
