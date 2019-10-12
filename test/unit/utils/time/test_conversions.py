@@ -1,11 +1,12 @@
 import unittest
 from datetime import timedelta
 
-from scripts.time.utils.conversions import check_float_validity_and_convert_from_string
-from scripts.time.utils.conversions import convert_float_to_timedelta
-from scripts.time.utils.conversions import convert_time_string_to_timedelta
-from scripts.time.utils.conversions import convert_to_timedelta
-from scripts.time.utils.constants import TIME_UNIT_LENGTH_IN_SECONDS
+from scripts.utils.time.conversions import check_float_validity_and_convert_from_string
+from scripts.utils.time.conversions import convert_float_to_timedelta
+from scripts.utils.time.conversions import convert_time_string_to_timedelta
+from scripts.utils.time.conversions import convert_to_timedelta
+from scripts.utils.time.conversions import convert_timedelta_to_uniform_time_string
+from scripts.utils.time.constants import TIME_UNIT_LENGTH_IN_SECONDS
   
 class TestConversions(unittest.TestCase):
   def setUp(self):
@@ -52,6 +53,18 @@ class TestConversions(unittest.TestCase):
   def test_converts_to_timedelta(self):
     self.__float_conversion_test(test_func = convert_to_timedelta)
     self.__time_string_conversion_test(test_func = convert_to_timedelta)
+
+  def test_converts_timedelta_to_uniform_time_string(self):
+    self.assertEqual("[0 U @ 00:00:00]", 
+      convert_timedelta_to_uniform_time_string(3))
+    self.assertEqual("[22 U @ 09:10:00]", 
+      convert_timedelta_to_uniform_time_string(timedelta(hours = 9, minutes = 10)))
+    self.assertEqual("[0 U @ 00:00:00]", 
+      convert_timedelta_to_uniform_time_string(timedelta(seconds = 0)))
+    self.assertEqual("[8.757 U @ 03:38:56]",
+      convert_timedelta_to_uniform_time_string(timedelta(hours = 3, minutes = 38, seconds = 56)))
+    self.assertEqual("[295.432 U @ 123:05:48]",
+      convert_timedelta_to_uniform_time_string(timedelta(seconds = 443148)))
 
   def tearDown(self):
     pass

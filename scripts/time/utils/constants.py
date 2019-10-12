@@ -1,3 +1,0 @@
-VALID_TIMESTRING_REGEX = r'^(\d)+:(\d)+:(\d)+$'
-
-TIME_UNIT_LENGTH_IN_SECONDS = 1500

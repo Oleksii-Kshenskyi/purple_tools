@@ -1,8 +1,8 @@
 import unittest
 from datetime import timedelta
 
-from scripts.time.utils.checks import is_valid_time_string
-from scripts.time.utils.checks import is_of_type
+from scripts.utils.time.checks import is_valid_time_string
+from scripts.utils.time.checks import is_of_type
 
 class TestTimeChecks(unittest.TestCase):
   
