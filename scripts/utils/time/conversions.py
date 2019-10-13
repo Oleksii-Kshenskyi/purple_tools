@@ -4,6 +4,7 @@ from scripts.utils.time.checks import is_of_type
 from scripts.utils.time.checks import is_valid_time_string
 from scripts.utils.time.constants import TIME_UNIT_LENGTH_IN_SECONDS
 from scripts.utils.time.constants import UNIFORM_TIME_STRING
+from scripts.utils.time.constants import UNIFORM_TIME_STRING_DEFAULT
 from scripts.utils.time.constants import ROUND_UNITS_TO
 from scripts.utils.time.constants import SECONDS_IN_MINUTE
 from scripts.utils.time.constants import MINUTES_IN_HOUR
@@ -19,7 +20,7 @@ def convert_float_to_timedelta(source):
   if not is_of_type(source, float) or source < 0:
     return None
 
-  return timedelta(seconds = source * TIME_UNIT_LENGTH_IN_SECONDS)
+  return timedelta(seconds = round(round(source, ROUND_UNITS_TO) * TIME_UNIT_LENGTH_IN_SECONDS))
 
 def convert_time_string_to_timedelta(source):
   if not is_valid_time_string(source):
@@ -29,7 +30,9 @@ def convert_time_string_to_timedelta(source):
   return timedelta(hours = int(new_hours), minutes = int(new_minutes), seconds = int(new_seconds))
 
 def convert_to_timedelta(source):
-  if is_of_type(source, float):
+  if is_of_type(source, int):
+    return convert_float_to_timedelta(float(source))
+  elif is_of_type(source, float):
     return convert_float_to_timedelta(source)
   elif is_of_type(source, str):
     return convert_time_string_to_timedelta(source)
@@ -38,7 +41,7 @@ def convert_to_timedelta(source):
 
 def convert_timedelta_to_uniform_time_string(source_timedelta):
   if not is_of_type(source_timedelta, timedelta):
-    return UNIFORM_TIME_STRING.format(0, 0, 0, 0)
+    return UNIFORM_TIME_STRING_DEFAULT
 
   total_seconds = round(source_timedelta.total_seconds())
   raw_units = total_seconds / TIME_UNIT_LENGTH_IN_SECONDS

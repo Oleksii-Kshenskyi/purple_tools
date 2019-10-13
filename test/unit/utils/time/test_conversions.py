@@ -16,6 +16,7 @@ class TestConversions(unittest.TestCase):
     self.assertEqual(timedelta(seconds = 34.156 * TIME_UNIT_LENGTH_IN_SECONDS), test_func(34.156))
     self.assertEqual(timedelta(seconds = 0 * TIME_UNIT_LENGTH_IN_SECONDS), test_func(0.0))
     self.assertEqual(timedelta(seconds = 3 * TIME_UNIT_LENGTH_IN_SECONDS), test_func(3.0))
+    self.assertEqual(timedelta(hours = 1, minutes = 8, seconds = 44), test_func(2.749))
 
     self.assertEqual(None, test_func(-5.46))
     self.assertEqual(None, test_func("344"))
