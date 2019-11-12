@@ -26,24 +26,14 @@ class TestArgparseCLI(unittest.TestCase):
     self.assertIsInstance(args.first, int)
     self.assertIsInstance(args.second, int)
 
-    new_error = 0
-    try:
+    with self.assertRaises(ArgumentError):
       parser.parse_args(["kek", "4", "6"])
-    except SystemExit:
-      new_error += 1
-    self.assertEqual(1, new_error)
 
-    try:
+    with self.assertRaises(ArgumentError):
       parser.parse_args(["add", "four", "6"])
-    except SystemExit:
-      new_error += 1
-    self.assertEqual(2, new_error)
 
-    try:
+    with self.assertRaises(ArgumentError):
       parser.parse_args(["add", "4", "six"])
-    except SystemExit:
-      new_error += 1
-    self.assertEqual(3, new_error)
 
   def tearDown(self):
       pass

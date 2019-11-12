@@ -1,4 +1,9 @@
 import argparse
+import sys
+
+class ErrorRaisingArgumentParser(argparse.ArgumentParser):
+  def error(self, message):
+    raise sys.exc_info()[1]
 
 class ArithmeticParser:
 
@@ -27,7 +32,7 @@ class ArithmeticParser:
 
   def __init__(self):
     self.operations = {"add": self.add, "sub": self.sub, "mul": self.mul, "div": self.div}
-    self.parser = argparse.ArgumentParser()
+    self.parser = ErrorRaisingArgumentParser()
     self._add_arguments(self.parser)
 
   def run(self):
