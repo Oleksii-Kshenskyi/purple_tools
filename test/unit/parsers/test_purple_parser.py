@@ -21,6 +21,13 @@ class TestPurpleParser(unittest.TestCase):
     parse_result = self.parser.parse_args([tname(), pname(), "00:00:00"])
     self.assertEqual(pname(), getattr(parse_result, PARSER_IDENTIFIER_NAME))
 
+  def test_endpoint_parser_executes(self):
+    parser = purple.create_parser()
+    parse_result = parser.parse_args([tname(), pname(), "2"])
+
+    execution_result = purple.run_endpoint(parse_result)
+    self.assertEqual("[2 U @ 00:50:00]", execution_result)
+
   def tearDown(self):
     pass
 

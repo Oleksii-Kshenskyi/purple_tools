@@ -32,8 +32,7 @@ def __forward_number_from_argparse(number):
   except ValueError:
     return number
 
-def execute_command(parser, arguments):
-  parse_result = parser.parse_args(arguments)
+def execute_command(parse_result):
   result = []
   for item in parse_result.time:
     item_ready = __forward_number_from_argparse(item)
