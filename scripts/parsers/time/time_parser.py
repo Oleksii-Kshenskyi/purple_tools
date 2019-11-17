@@ -1,26 +1,31 @@
 import argparse
 
 from scripts.parsers.basic_throwing_parser import BasicThrowingParser
-from scripts.parsers.time.time_print_parser import TimePrintParser
+import scripts.parsers.time.time_print_parser as time_print
 from scripts.utils.time.constants import TIME_COMMAND_DESCRIPTION
 from scripts.utils.time.constants import TIME_PRINT_COMMAND_DESCRIPTION
 from scripts.utils.time.constants import TIME_PRINT_ARGUMENTS_TIME_HELP
+from scripts.utils.constants import PARSER_IDENTIFIER_NAME
 
-TIME_PRINT_PARSER_NAME = 'print'
-TIME_PRINT_PARSER_SHORT_NAME = 'p'
+def name(get_short_name = False):
+  return "t" if get_short_name else "time"
 
-class TimeParser:
+def create_parser():
+  parser = BasicThrowingParser()
 
-  def __init__(self):
-    self._wrappers = {}
-    self._wrappers[TIME_PRINT_PARSER_NAME] = TimePrintParser()
+  return _perform_creation(parser)
 
-    self._parser = BasicThrowingParser()
-    self._parser.description = TIME_COMMAND_DESCRIPTION
+def create_subparser(subparsers):
+  parser = subparsers.add_parser(name(), aliases=[name(get_short_name=True)])
 
-    subparsers = self._parser.add_subparsers()
+  return _perform_creation(parser)
 
-    self._print_parser = subparsers.add_parser(TIME_PRINT_PARSER_NAME, aliases=[TIME_PRINT_PARSER_SHORT_NAME])
-    self._print_parser.description = TIME_PRINT_COMMAND_DESCRIPTION
-    self._print_parser.add_argument("time", nargs="+", help=TIME_PRINT_ARGUMENTS_TIME_HELP)
+def _perform_creation(parser):
+  parser.description = TIME_COMMAND_DESCRIPTION
+
+  subparsers = parser.add_subparsers(dest = PARSER_IDENTIFIER_NAME)
+
+  time_print.create_subparser(subparsers)
+
+  return parser
 

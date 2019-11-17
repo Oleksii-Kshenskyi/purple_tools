@@ -1,5 +1,6 @@
 import unittest
 
+from scripts.parsers.basic_throwing_parser import BasicThrowingParser
 import scripts.parsers.time.time_print_parser as time_print
 from scripts.utils.time.constants import UNIFORM_TIME_STRING_DEFAULT
 
@@ -32,6 +33,23 @@ class TestTimePrintParser(unittest.TestCase):
 
     result = time_print.execute_command(self.parser, ["kek", "2", "1:00:0"])
     self.assertEqual(f'{ UNIFORM_TIME_STRING_DEFAULT }\n[2 U @ 00:50:00]\n[2.4 U @ 01:00:00]', result)
+
+  def test_name(self):
+    self.assertEqual("print", time_print.name())
+    self.assertEqual("p", time_print.name(get_short_name=True))
+
+  def test_as_subparser(self):
+    parser = BasicThrowingParser()
+    self.parser = time_print.create_subparser(parser.add_subparsers())
+    self.test_parser_processes_arguments()
+    self.test_wrapper_executes_command()
+
+    parse_result = parser.parse_args([time_print.name(), "3", "00:00:01"])
+    self.assertEqual(["3", "00:00:01"], parse_result.time)
+
+    parse_result = parser.parse_args([time_print.name(get_short_name=True), "3", "00:00:01"])
+    self.assertEqual(["3", "00:00:01"], parse_result.time)
+
 
   def tearDown(self):
     pass

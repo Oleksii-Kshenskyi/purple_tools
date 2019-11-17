@@ -2,12 +2,21 @@ import argparse
 import sys
 
 from scripts.parsers.basic_throwing_parser import BasicThrowingParser
+from scripts.utils.constants import PURPLE_DESCRIPTION
+from scripts.utils.constants import PARSER_IDENTIFIER_NAME
+import scripts.parsers.time.time_parser as time_parser
 
-class PurpleParser:
+def name(get_short_name = False):
+  return "pt" if get_short_name else "purple"
 
-  def __init__(self):
-    self._parser = BasicThrowingParser()
-    self._parser.add_argument("kek", help="The notorious kek argument.")
+def create_parser():
+  parser = BasicThrowingParser()
 
-  def run(self, arguments):
-    return self._parser.parse_args(arguments if arguments else sys.argv[1:])
+  return _perform_creation(parser)
+
+def _perform_creation(parser):
+  parser.description = PURPLE_DESCRIPTION
+
+  time_parser.create_subparser(parser.add_subparsers(dest = PARSER_IDENTIFIER_NAME))
+
+  return parser
