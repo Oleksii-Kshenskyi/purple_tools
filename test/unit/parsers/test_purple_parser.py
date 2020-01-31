@@ -3,6 +3,7 @@ import unittest
 import scripts.parsers.purpleparser as purple
 from scripts.parsers.time.time_parser import name as tname
 from scripts.parsers.time.time_print_parser import name as pname
+from scripts.parsers.test.test_parser import name as tsname
 from scripts.utils.constants import PARSER_IDENTIFIER_NAME
 
 class TestPurpleParser(unittest.TestCase):
@@ -13,6 +14,13 @@ class TestPurpleParser(unittest.TestCase):
   def test_parser_processes_arguments(self):
     parse_result = self.parser.parse_args([tname(), pname(), "3"])
     self.assertEqual(["3"], parse_result.time)
+
+    parse_result = self.parser.parse_args([tsname(), "unit"])
+    self.assertEqual("unit", parse_result.kind)
+    parse_result = self.parser.parse_args([tsname(), "exploratory"])
+    self.assertEqual("exploratory", parse_result.kind)
+    with self.assertRaises(ValueError):
+      self.parser.parse_args([tsname(), "something"])
 
     with self.assertRaises(ValueError):
       self.parser.parse_args([tname(), pname()])
