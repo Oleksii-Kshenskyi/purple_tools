@@ -1,6 +1,6 @@
 import unittest
-from scripts.utils.types.float.fractional import get_fractional_part_as_string
-from scripts.utils.types.float.fractional import is_fractional_part_significant
+from scripts.utils.utypes.ufloat.fractional import get_fractional_part_as_string
+from scripts.utils.utypes.ufloat.fractional import is_fractional_part_significant
 
 class TestFractionalUtils(unittest.TestCase):
   def setUp(self):

@@ -3,7 +3,8 @@ import argparse
 from scripts.parsers.basic_throwing_parser import BasicThrowingParser
 from scripts.utils.constants import TEST_COMMAND_DESCRIPTION
 from scripts.utils.constants import TEST_ARGUMENTS_KIND_HELP
-from scripts.time.calculation.timecalc import construct_uniform_time_string
+from scripts.utils.constants import PROJECT_DIR
+from scripts.utils.testing.batch.execute import run_tests_in_directory
 
 def name(get_short_name = False):
   return "ts" if get_short_name else "test"
@@ -33,4 +34,5 @@ def __forward_number_from_argparse(number):
 
 def execute_command(parse_result):
   
-  return 'test command runs...'
+  run_tests_in_directory(PROJECT_DIR + f'/test/{parse_result.kind}')
+  return ''

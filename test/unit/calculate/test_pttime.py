@@ -1,7 +1,7 @@
 import unittest
 from datetime import timedelta
 
-from scripts.time.calculation.timecalc import construct_uniform_time_string
+from scripts.calculate.pttime import construct_uniform_time_string
 from scripts.utils.time.constants import UNIFORM_TIME_STRING_DEFAULT
 
 class TestTimeCalculation(unittest.TestCase):
