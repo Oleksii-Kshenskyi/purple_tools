@@ -15,6 +15,12 @@ class TestTestParser(unittest.TestCase):
     parsing_result = self.parser.parse_args(["exploratory"])
     self.assertEqual("exploratory", parsing_result.kind)
 
+    parsing_result = self.parser.parse_args(["e"])
+    self.assertEqual("e", parsing_result.kind)
+
+    parsing_result = self.parser.parse_args(["u"])
+    self.assertEqual("u", parsing_result.kind)
+
     with self.assertRaises(ValueError):
       self.parser.parse_args(["third"])
     

@@ -4,6 +4,7 @@ from scripts.parsers.basic_throwing_parser import BasicThrowingParser
 from scripts.utils.constants import TEST_COMMAND_DESCRIPTION
 from scripts.utils.constants import TEST_ARGUMENTS_KIND_HELP
 from scripts.utils.constants import PROJECT_DIR
+from scripts.utils.constants import KIND_OF_TEST
 from scripts.utils.testing.batch.execute import run_tests_in_directory
 
 def name(get_short_name = False):
@@ -22,7 +23,7 @@ def create_subparser(subparsers):
 def _perform_creation(parser):
   parser.description = TEST_COMMAND_DESCRIPTION
 
-  parser.add_argument("kind", choices=['unit', 'exploratory'], help=TEST_ARGUMENTS_KIND_HELP)
+  parser.add_argument("kind", choices=['unit', 'u', 'exploratory', 'e'], help=TEST_ARGUMENTS_KIND_HELP)
 
   return parser
 
@@ -33,6 +34,5 @@ def __forward_number_from_argparse(number):
     return number
 
 def execute_command(parse_result):
-  
-  run_tests_in_directory(PROJECT_DIR + f'/test/{parse_result.kind}')
+  run_tests_in_directory(PROJECT_DIR + f'/test/{KIND_OF_TEST[parse_result.kind]}')
   return ''
