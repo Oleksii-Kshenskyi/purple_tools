@@ -2,7 +2,7 @@ import unittest
 
 import scripts.parsers.purpleparser as purple
 from scripts.parsers.time.time_parser import name as tname
-from scripts.parsers.time.time_print_parser import name as pname
+from scripts.parsers.time.time_parser import name_of_print_subcommand as pname
 from scripts.parsers.test.test_parser import name as tsname
 from scripts.utils.constants import PARSER_IDENTIFIER_NAME
 
@@ -27,7 +27,7 @@ class TestPurpleParser(unittest.TestCase):
 
   def test_subparsers_are_identifiable(self):
     parse_result = self.parser.parse_args([tname(), pname(), "00:00:00"])
-    self.assertEqual(pname(), getattr(parse_result, PARSER_IDENTIFIER_NAME))
+    self.assertEqual(tname(), getattr(parse_result, PARSER_IDENTIFIER_NAME))
 
   def test_endpoint_parser_executes(self):
     parser = purple.create_parser()

@@ -1,7 +1,6 @@
 import argparse
 
 from scripts.parsers.basic_throwing_parser import BasicThrowingParser
-import scripts.parsers.time.time_print_parser as time_print
 from scripts.utils.time.constants import TIME_COMMAND_DESCRIPTION
 from scripts.utils.time.constants import TIME_PRINT_COMMAND_DESCRIPTION
 from scripts.utils.time.constants import TIME_PRINT_ARGUMENTS_TIME_HELP
@@ -10,6 +9,9 @@ from scripts.calculate.pttime import construct_uniform_time_string
 
 def name(get_short_name = False):
   return "t" if get_short_name else "time"
+
+def name_of_print_subcommand(get_short_name = False):
+  return "p" if get_short_name else "print"
 
 def create_parser():
   parser = BasicThrowingParser()
@@ -24,7 +26,8 @@ def create_subparser(subparsers):
 def _perform_creation(parser):
   parser.description = TIME_COMMAND_DESCRIPTION
 
-  parser.add_argument("command", choices=["print", "p"])
+  parser.add_argument("command", choices=[name_of_print_subcommand(),
+                                          name_of_print_subcommand(get_short_name=True)])
 
   parser.add_argument("time", nargs="+", help=TIME_PRINT_ARGUMENTS_TIME_HELP)
 
@@ -50,6 +53,6 @@ def _forward_number_from_argparse(number):
 
 def _get_subcommand_mapping():
   return {
-    "print" : _execute_print_subcommand,
-    "p"     : _execute_print_subcommand
+    name_of_print_subcommand()                    : _execute_print_subcommand,
+    name_of_print_subcommand(get_short_name=True) : _execute_print_subcommand
   }
