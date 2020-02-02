@@ -3,4 +3,4 @@ language:
 python:
   - "3.7"
 script:
-  python3 -m unittest
+  python3 -m unittest -v
