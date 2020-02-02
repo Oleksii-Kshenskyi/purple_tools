@@ -31,19 +31,25 @@ def _perform_creation(parser):
   return parser
 
 def execute_command(parse_result):
-  return _execute_print_subcommand(parse_result)
+  return _get_subcommand_mapping()[parse_result.command](parse_result)
 
 def _execute_print_subcommand(parse_result):
   result = []
   for item in parse_result.time:
-    item_ready = __forward_number_from_argparse(item)
+    item_ready = _forward_number_from_argparse(item)
     result += [construct_uniform_time_string(item_ready)]
 
   return '\n'.join(result)
 
 
-def __forward_number_from_argparse(number):
+def _forward_number_from_argparse(number):
   try:
     return float(number)
   except ValueError:
     return number
+
+def _get_subcommand_mapping():
+  return {
+    "print" : _execute_print_subcommand,
+    "p"     : _execute_print_subcommand
+  }
