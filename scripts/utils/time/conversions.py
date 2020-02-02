@@ -8,7 +8,7 @@ from scripts.utils.time.constants import UNIFORM_TIME_STRING_DEFAULT
 from scripts.utils.time.constants import ROUND_UNITS_TO
 from scripts.utils.time.constants import SECONDS_IN_MINUTE
 from scripts.utils.time.constants import MINUTES_IN_HOUR
-from scripts.utils.types.float.fractional import is_fractional_part_significant
+from scripts.utils.utypes.ufloat.fractional import is_fractional_part_significant
 
 def check_float_validity_and_convert_from_string(source):
   try:

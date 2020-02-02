@@ -1,6 +1,6 @@
 import unittest
 from argparse import ArgumentError
-from scripts.utils.testing.exploratory.argparse.simple_parser import ArithmeticParser
+from scripts.utils.testing.exploratory.eargparse.simple_parser import ArithmeticParser
 
 class TestArgparseCLI(unittest.TestCase):
   

@@ -4,7 +4,7 @@ from scripts.parsers.basic_throwing_parser import BasicThrowingParser
 from scripts.utils.time.constants import TIME_PRINT_COMMAND_DESCRIPTION
 from scripts.utils.time.constants import TIME_PRINT_ARGUMENTS_TIME_HELP
 from scripts.utils.time.constants import UNIFORM_TIME_STRING_DEFAULT
-from scripts.time.calculation.timecalc import construct_uniform_time_string
+from scripts.calculate.pttime import construct_uniform_time_string
 
 def name(get_short_name = False):
   return "p" if get_short_name else "print"

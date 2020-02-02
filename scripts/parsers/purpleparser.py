@@ -5,11 +5,14 @@ from scripts.parsers.basic_throwing_parser import BasicThrowingParser
 from scripts.utils.constants import PURPLE_DESCRIPTION
 from scripts.utils.constants import PARSER_IDENTIFIER_NAME
 import scripts.parsers.time.time_parser as time_parser
+import scripts.parsers.test.test_parser as test_parser
 
 import scripts.parsers.time.time_print_parser as time_print
 
 ENDPOINT_PARSERS = {time_print.name(): time_print.execute_command,
-                    time_print.name(get_short_name=True): time_print.execute_command}
+                    time_print.name(get_short_name=True): time_print.execute_command,
+                    test_parser.name(): test_parser.execute_command,
+                    test_parser.name(get_short_name=True): test_parser.execute_command}
 
 def name(get_short_name = False):
   return "pt" if get_short_name else "purple"
@@ -22,7 +25,10 @@ def create_parser():
 def _perform_creation(parser):
   parser.description = PURPLE_DESCRIPTION
 
-  time_parser.create_subparser(parser.add_subparsers(dest = PARSER_IDENTIFIER_NAME))
+  purple_subparsers = parser.add_subparsers(dest = PARSER_IDENTIFIER_NAME)
+
+  time_parser.create_subparser(purple_subparsers)
+  test_parser.create_subparser(purple_subparsers)
 
   return parser
 
