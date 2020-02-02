@@ -34,5 +34,8 @@ def __forward_number_from_argparse(number):
     return number
 
 def execute_command(parse_result):
-  run_tests_in_directory(PROJECT_DIR + f'/test/{KIND_OF_TEST[parse_result.kind]}')
+  execute_command_choose_output(parse_result)
   return ''
+
+def execute_command_choose_output(parse_result, out_stream=None):
+  return run_tests_in_directory(PROJECT_DIR + f'/test/{KIND_OF_TEST[parse_result.kind]}', out_stream)
