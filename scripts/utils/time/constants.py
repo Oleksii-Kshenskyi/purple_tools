@@ -13,7 +13,6 @@ SECONDS_IN_MINUTE = 60
 MINUTES_IN_HOUR = 60
 
 # Various help messages and descriptions
-TIME_COMMAND_DESCRIPTION = "Time command is responsible for various calculations related to time."
-TIME_PRINT_COMMAND_DESCRIPTION = "Prints out a universal time string of '[<P> U @ HH:MM:SS]' format, where <P> is a floating point number of pomodoro units the HH:MM:SS time string is equal to."
-TIME_PRINT_ARGUMENTS_TIME_HELP = """Time units to print out (one or more arguments expected). Can be either <HOURS>:<MINUTES>:<SECONDS> or <number_of_pomodoro_units>. 
-"""
+TIME_COMMAND_DESCRIPTION = "Time command is responsible for various calculations related to time.\nOutputs time in the format of a time string of '[<P> U @ HH:MM:SS]', where:\n<P> is a floating point number of pomodoro units the HH:MM:SS time string is equal to."
+TIME_ARGUMENTS_TIME_HELP = "Time to work with (one or more arguments expected).\nCan be either <HOURS>:<MINUTES>:<SECONDS> or <number_of_pomodoro_units>."
+TIME_ARGUMENTS_COMMAND_HELP = "Various subcommands the time command supports.\n\t=> print | p: print either HH:MM:SS or <P> as the [<P> U @ HH:MM:SS] time string."

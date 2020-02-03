@@ -7,10 +7,8 @@ from scripts.utils.constants import PARSER_IDENTIFIER_NAME
 import scripts.parsers.time.time_parser as time_parser
 import scripts.parsers.test.test_parser as test_parser
 
-import scripts.parsers.time.time_print_parser as time_print
-
-ENDPOINT_PARSERS = {time_print.name(): time_print.execute_command,
-                    time_print.name(get_short_name=True): time_print.execute_command,
+ENDPOINT_PARSERS = {time_parser.name(): time_parser.execute_command,
+                    time_parser.name(get_short_name=True): time_parser.execute_command,
                     test_parser.name(): test_parser.execute_command,
                     test_parser.name(get_short_name=True): test_parser.execute_command}
 
