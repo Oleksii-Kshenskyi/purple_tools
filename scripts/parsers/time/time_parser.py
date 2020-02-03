@@ -1,9 +1,10 @@
 import argparse
+from argparse import RawTextHelpFormatter
 
 from scripts.parsers.basic_throwing_parser import BasicThrowingParser
 from scripts.utils.time.constants import TIME_COMMAND_DESCRIPTION
-from scripts.utils.time.constants import TIME_PRINT_COMMAND_DESCRIPTION
-from scripts.utils.time.constants import TIME_PRINT_ARGUMENTS_TIME_HELP
+from scripts.utils.time.constants import TIME_ARGUMENTS_TIME_HELP
+from scripts.utils.time.constants import TIME_ARGUMENTS_COMMAND_HELP
 from scripts.utils.constants import PARSER_IDENTIFIER_NAME
 from scripts.calculate.pttime import construct_uniform_time_string
 
@@ -19,7 +20,7 @@ def create_parser():
   return _perform_creation(parser)
 
 def create_subparser(subparsers):
-  parser = subparsers.add_parser(name(), aliases=[name(get_short_name=True)])
+  parser = subparsers.add_parser(name(), formatter_class=RawTextHelpFormatter, aliases=[name(get_short_name=True)])
 
   return _perform_creation(parser)
 
@@ -27,9 +28,10 @@ def _perform_creation(parser):
   parser.description = TIME_COMMAND_DESCRIPTION
 
   parser.add_argument("command", choices=[name_of_print_subcommand(),
-                                          name_of_print_subcommand(get_short_name=True)])
+                                          name_of_print_subcommand(get_short_name=True)],
+                                 help=TIME_ARGUMENTS_COMMAND_HELP)
 
-  parser.add_argument("time", nargs="+", help=TIME_PRINT_ARGUMENTS_TIME_HELP)
+  parser.add_argument("time", nargs="+", help=TIME_ARGUMENTS_TIME_HELP)
 
   return parser
 
