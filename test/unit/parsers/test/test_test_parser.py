@@ -1,7 +1,7 @@
 import unittest
 import os
 
-from scripts.parsers.basic_throwing_parser import BasicThrowingParser
+from scripts.parsers.base.basic_throwing_parser import BasicThrowingParser
 import scripts.parsers.test.test_parser as test_parser
 
 class TestTestParser(unittest.TestCase):

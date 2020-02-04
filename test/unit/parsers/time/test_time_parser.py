@@ -1,6 +1,6 @@
 import unittest
 
-from scripts.parsers.basic_throwing_parser import BasicThrowingParser
+from scripts.parsers.base.basic_throwing_parser import BasicThrowingParser
 import scripts.parsers.time.time_parser as time_parser
 from scripts.utils.constants import PARSER_IDENTIFIER_NAME
 from scripts.utils.time.constants import UNIFORM_TIME_STRING_DEFAULT
