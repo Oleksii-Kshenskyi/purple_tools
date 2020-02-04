@@ -1,7 +1,7 @@
 import argparse
 from argparse import RawTextHelpFormatter
 
-from scripts.parsers.basic_throwing_parser import BasicThrowingParser
+from scripts.parsers.base.basic_throwing_parser import BasicThrowingParser
 from scripts.utils.time.constants import TIME_COMMAND_DESCRIPTION
 from scripts.utils.time.constants import TIME_ARGUMENTS_TIME_HELP
 from scripts.utils.time.constants import TIME_ARGUMENTS_COMMAND_HELP

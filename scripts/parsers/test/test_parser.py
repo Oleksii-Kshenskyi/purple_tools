@@ -1,6 +1,6 @@
 import argparse
 
-from scripts.parsers.basic_throwing_parser import BasicThrowingParser
+from scripts.parsers.base.basic_throwing_parser import BasicThrowingParser
 from scripts.utils.constants import TEST_COMMAND_DESCRIPTION
 from scripts.utils.constants import TEST_ARGUMENTS_KIND_HELP
 from scripts.utils.constants import PROJECT_DIR

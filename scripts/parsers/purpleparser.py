@@ -1,7 +1,7 @@
 import argparse
 import sys
 
-from scripts.parsers.basic_throwing_parser import BasicThrowingParser
+from scripts.parsers.base.basic_throwing_parser import BasicThrowingParser
 from scripts.utils.constants import PURPLE_DESCRIPTION
 from scripts.utils.constants import PARSER_IDENTIFIER_NAME
 import scripts.parsers.time.time_parser as time_parser
