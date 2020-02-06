@@ -1,35 +1,36 @@
 import unittest
-import os
+# import os
 
-from scripts.parsers.basic_throwing_parser import BasicThrowingParser
-import scripts.parsers.test.test_parser as test_parser
+from scripts.parsers.base.abstract_parser import AbstractParser
+from scripts.parsers.test.test_parser import TestParser
 
 class TestTestParser(unittest.TestCase):
   
   def setUp(self):
-    self.parser = test_parser.create_parser()
+    self.parser = TestParser()
+    self.parser.create_parser()
 
   def test_parser_processes_arguments(self):
-    parsing_result = self.parser.parse_args(["unit"])
+    parsing_result = self.parser.parser.parse_args(["unit"])
     self.assertEqual("unit", parsing_result.kind)
 
-    parsing_result = self.parser.parse_args(["exploratory"])
+    parsing_result = self.parser.parser.parse_args(["exploratory"])
     self.assertEqual("exploratory", parsing_result.kind)
 
-    parsing_result = self.parser.parse_args(["e"])
+    parsing_result = self.parser.parser.parse_args(["e"])
     self.assertEqual("e", parsing_result.kind)
 
-    parsing_result = self.parser.parse_args(["u"])
+    parsing_result = self.parser.parser.parse_args(["u"])
     self.assertEqual("u", parsing_result.kind)
 
     with self.assertRaises(ValueError):
-      self.parser.parse_args(["third"])
+      self.parser.parser.parse_args(["third"])
     
     with self.assertRaises(ValueError):
-      self.parser.parse_args([])
+      self.parser.parser.parse_args([])
 
     with self.assertRaises(ValueError):
-      self.parser.parse_args(["unit", "two"])
+      self.parser.parser.parse_args(["unit", "two"])
 
   # This unit test re-executes all exploratory tests to test if the test module
   # functionality works correctly in conjunction with the test parser. The unit test has 
@@ -38,10 +39,10 @@ class TestTestParser(unittest.TestCase):
   # In case test parser functionality ever breaks, it would be a good idea to enable this
   # and debug. Until then, this stays commented out.
   # def test_parser_module_executes_command(self):
-  #   parse_result = self.parser.parse_args(["exploratory"])
+  #   parse_result = self.parser.parser.parse_args(["exploratory"])
   #   out_file_name = os.path.join(os.path.dirname(os.path.realpath(__file__)), "output.txt")
   #   with open(out_file_name, "w") as the_stream:
-  #     execution_result = test_parser.execute_command_choose_output(parse_result, the_stream)
+  #     execution_result = self.parser.execute_command_choose_output(parse_result, the_stream)
 
   #   self.assertEqual(0, len(execution_result.failures))
   #   self.assertEqual(0, len(execution_result.errors))
@@ -49,12 +50,13 @@ class TestTestParser(unittest.TestCase):
   #   os.unlink(out_file_name)
 
   def test_name(self):
-    self.assertEqual("test", test_parser.name())
-    self.assertEqual("ts", test_parser.name(get_short_name=True))
+    self.assertEqual("test", self.parser.name)
+    self.assertEqual("ts", self.parser.short_name)
 
   def test_as_subparser(self):
-    parser = BasicThrowingParser()
-    self.parser = test_parser.create_subparser(parser.add_subparsers())
+    self.papa_parser = AbstractParser()
+    self.papa_parser.create_parser()
+    self.parser.create_subparser(self.papa_parser)
     self.test_parser_processes_arguments()
     # self.test_parser_module_executes_command()
 

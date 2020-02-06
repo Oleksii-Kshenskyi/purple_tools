@@ -1,12 +1,13 @@
 import traceback
 
-import scripts.parsers.purpleparser as purple_parser
+from scripts.parsers.purpleparser import PurpleParser
 
 def run_purple_tools():
-  parser = purple_parser.create_parser()
-  parse_result = parser.parse_args()
+  parser = PurpleParser()
+  parser.create_parser()
+  parse_result = parser.parser.parse_args()
 
-  execution_result = purple_parser.run_endpoint(parse_result)
+  execution_result = parser.run_endpoint(parse_result)
   print(execution_result)
 
 if __name__ == "__main__":
