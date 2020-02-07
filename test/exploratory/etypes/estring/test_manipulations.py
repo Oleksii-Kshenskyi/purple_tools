@@ -18,6 +18,10 @@ class TestStringManipulations(unittest.TestCase):
     self.assertEqual(three, "two")
     self.assertEqual(items, "three")
 
+  def test_cropping_last_character(self):
+    self.assertEqual("Hell", str("Hello")[:-1])
+    self.assertEqual("Surpris", str("Surprise")[:-1])
+
   def tearDown(self):
       pass
 

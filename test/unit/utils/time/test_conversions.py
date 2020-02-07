@@ -4,6 +4,7 @@ from datetime import timedelta
 from scripts.utils.time.conversions import check_float_validity_and_convert_from_string
 from scripts.utils.time.conversions import convert_float_to_timedelta
 from scripts.utils.time.conversions import convert_time_string_to_timedelta
+from scripts.utils.time.conversions import convert_duration_string_to_timedelta
 from scripts.utils.time.conversions import convert_to_timedelta
 from scripts.utils.time.conversions import convert_timedelta_to_uniform_time_string
 from scripts.utils.time.constants import TIME_UNIT_LENGTH_IN_SECONDS
@@ -32,6 +33,17 @@ class TestConversions(unittest.TestCase):
     self.assertEqual(None, test_func("0k:12:48"))
     self.assertEqual(None, test_func("@@:$$:!!"))
 
+  def __duration_string_conversion_test(self, test_func):
+    self.assertEqual(timedelta(hours = 35, seconds = 3), test_func("35h3s"))
+    self.assertEqual(timedelta(hours = 2, minutes = 77, seconds = 3), test_func("2h77m3s"))
+    self.assertEqual(timedelta(hours = 2, minutes = 3, seconds = 1), test_func("1s2h3m"))
+    self.assertEqual(timedelta(hours = 2), test_func("2h"))
+    self.assertEqual(timedelta(hours = 1, minutes = 3), test_func("3m1h"))
+    self.assertEqual(timedelta(minutes = 160, seconds = 2440), test_func("160m2440s"))
+
+    self.assertEqual(None, test_func("1s2h3m1s"))
+    self.assertEqual(None, test_func("-1s"))
+
   def test_checks_float_validity(self):
     self.assertEqual(0.0, check_float_validity_and_convert_from_string("0"))
     self.assertEqual(0.765484612, check_float_validity_and_convert_from_string("0.765484612"))
@@ -51,9 +63,13 @@ class TestConversions(unittest.TestCase):
   def test_converts_time_string_to_timedelta(self):
     self.__time_string_conversion_test(test_func = convert_time_string_to_timedelta)
 
+  def test_converts_duration_string_to_timedelta(self):
+    self.__duration_string_conversion_test(test_func = convert_duration_string_to_timedelta)
+
   def test_converts_to_timedelta(self):
     self.__float_conversion_test(test_func = convert_to_timedelta)
     self.__time_string_conversion_test(test_func = convert_to_timedelta)
+    self.__duration_string_conversion_test(test_func = convert_to_timedelta)
 
   def test_converts_timedelta_to_uniform_time_string(self):
     self.assertEqual("[0 U @ 00:00:00]", 
