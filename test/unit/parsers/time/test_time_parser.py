@@ -37,6 +37,10 @@ class TestTimeParser(unittest.TestCase):
     execution_result = self.parser.execute_command(parse_result)
     self.assertEqual(f'{ UNIFORM_TIME_STRING_DEFAULT }\n[2 U @ 00:50:00]\n[2.4 U @ 01:00:00]', execution_result)
 
+    parse_result = self.parser.parser.parse_args([self.parser.subcommand_name_print, "25h40m21s"])
+    execution_result = self.parser.execute_command(parse_result)
+    self.assertEqual('[61.614 U @ 25:40:21]', execution_result)
+
   def tearDown(self):
     pass
 
