@@ -1,5 +1,8 @@
 VALID_TIMESTRING_REGEX = r'^(\d)+:(\d)+:(\d)+$'
 
+VALID_DURATION_REGEX = r'^(((\d)+[h|m|s]){0,1}){1,3}$'
+FINDALL_DURATION_REGEX = r'((\d)+[h|m|s])'
+
 TIME_UNIT_LENGTH_IN_SECONDS = 1500
 
 UNIFORM_TIME_STRING = '[{} U @ {:02d}:{:02d}:{:02d}]'
