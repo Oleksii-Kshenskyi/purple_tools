@@ -4,6 +4,8 @@ from scripts.parsers.base.abstract_parser import AbstractParser
 from scripts.parsers.time.time_parser import TimeParser
 from scripts.utils.constants import PARSER_IDENTIFIER_NAME
 from scripts.utils.time.constants import UNIFORM_TIME_STRING_DEFAULT
+from scripts.utils.time.constants import labeled_uniform_time_string_default
+from scripts.utils.time.constants import DEFAULT_LABEL
 
 class TestTimeParser(unittest.TestCase):
   
@@ -40,6 +42,30 @@ class TestTimeParser(unittest.TestCase):
     parse_result = self.parser.parser.parse_args([self.parser.subcommand_name_print, "25h40m21s"])
     execution_result = self.parser.execute_command(parse_result)
     self.assertEqual('[61.614 U @ 25:40:21]', execution_result)
+
+  def test_time_parser_executes_print_subcommand_with_label(self):
+    parse_result = self.parser.parser.parse_args([self.parser.optional_short_name_label, "kek", self.parser.subcommand_name_print, "00:25:00", "00:50:00", "108:64:1550"])
+    execution_result = self.parser.execute_command(parse_result)
+    self.assertEqual("[kek: 1 U @ 00:25:00]\n[kek: 2 U @ 00:50:00]\n[kek: 262.793 U @ 109:29:50]", execution_result)
+
+    parse_result = self.parser.parser.parse_args([self.parser.optional_name_label, "h@h@", self.parser.subcommand_name_print, "kek", "2", "1:00:0"])
+    execution_result = self.parser.execute_command(parse_result)
+    self.assertEqual(f'{ labeled_uniform_time_string_default("h@h@") }\n[h@h@: 2 U @ 00:50:00]\n[h@h@: 2.4 U @ 01:00:00]', execution_result)
+
+    parse_result = self.parser.parser.parse_args([self.parser.subcommand_name_print, "25h40m21s", self.parser.optional_short_name_label, "3"])
+    execution_result = self.parser.execute_command(parse_result)
+    self.assertEqual('[3: 61.614 U @ 25:40:21]', execution_result)
+
+    parse_result = self.parser.parser.parse_args([self.parser.optional_short_name_label, self.parser.subcommand_name_print, self.parser.subcommand_name_print, "25h40m21s"])
+    execution_result = self.parser.execute_command(parse_result)
+    self.assertEqual(f'[{self.parser.subcommand_name_print}: 61.614 U @ 25:40:21]', execution_result)
+
+    with self.assertRaises(ValueError):
+      parse_result = self.parser.parser.parse_args([self.parser.optional_short_name_label, self.parser.subcommand_name_print, "25h40m21s"])
+        
+    parse_result = self.parser.parser.parse_args([self.parser.subcommand_name_print, "25h40m21s", self.parser.optional_name_label])
+    execution_result = self.parser.execute_command(parse_result)
+    self.assertEqual(f'[{DEFAULT_LABEL}: 61.614 U @ 25:40:21]', execution_result)
 
   def tearDown(self):
     pass

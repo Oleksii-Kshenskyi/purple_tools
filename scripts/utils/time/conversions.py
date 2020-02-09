@@ -6,7 +6,9 @@ from scripts.utils.time.checks import is_valid_time_string
 from scripts.utils.time.checks import is_valid_duration_string
 from scripts.utils.time.constants import TIME_UNIT_LENGTH_IN_SECONDS
 from scripts.utils.time.constants import UNIFORM_TIME_STRING
+from scripts.utils.time.constants import LABELED_UNIFORM_TIME_STRING
 from scripts.utils.time.constants import UNIFORM_TIME_STRING_DEFAULT
+from scripts.utils.time.constants import labeled_uniform_time_string_default
 from scripts.utils.time.constants import ROUND_UNITS_TO
 from scripts.utils.time.constants import SECONDS_IN_MINUTE
 from scripts.utils.time.constants import MINUTES_IN_HOUR
@@ -62,9 +64,9 @@ def convert_to_timedelta(source):
   else:
     return None
 
-def convert_timedelta_to_uniform_time_string(source_timedelta):
+def convert_timedelta_to_uniform_time_string(source_timedelta, label = None):
   if not is_of_type(source_timedelta, timedelta):
-    return UNIFORM_TIME_STRING_DEFAULT
+    return UNIFORM_TIME_STRING_DEFAULT if not label else labeled_uniform_time_string_default(label)
 
   total_seconds = round(source_timedelta.total_seconds())
   raw_units = total_seconds / TIME_UNIT_LENGTH_IN_SECONDS
@@ -76,4 +78,4 @@ def convert_timedelta_to_uniform_time_string(source_timedelta):
   (rest, secs) = divmod(total_seconds, SECONDS_IN_MINUTE)
   (hrs, mins) = divmod(rest, MINUTES_IN_HOUR)
 
-  return UNIFORM_TIME_STRING.format(units, hrs, mins, secs)
+  return UNIFORM_TIME_STRING.format(units, hrs, mins, secs) if not label else LABELED_UNIFORM_TIME_STRING.format(label, units, hrs, mins, secs)
