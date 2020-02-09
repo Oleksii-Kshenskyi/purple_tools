@@ -6,8 +6,12 @@ FINDALL_DURATION_REGEX = r'((\d)+[h|m|s])'
 TIME_UNIT_LENGTH_IN_SECONDS = 1500
 
 UNIFORM_TIME_STRING = '[{} U @ {:02d}:{:02d}:{:02d}]'
+LABELED_UNIFORM_TIME_STRING = '[{}: {} U @ {:02d}:{:02d}:{:02d}]'
+
 
 UNIFORM_TIME_STRING_DEFAULT = UNIFORM_TIME_STRING.format(0, 0, 0, 0)
+def labeled_uniform_time_string_default(label):
+  return LABELED_UNIFORM_TIME_STRING.format(label, 0, 0, 0, 0)
 
 ROUND_UNITS_TO = 3
 

@@ -83,6 +83,18 @@ class TestConversions(unittest.TestCase):
     self.assertEqual("[295.432 U @ 123:05:48]",
       convert_timedelta_to_uniform_time_string(timedelta(seconds = 443148)))
 
+  def test_converts_timedelta_to_labeled_uniform_time_string(self):
+    self.assertEqual("[this: 0 U @ 00:00:00]", 
+      convert_timedelta_to_uniform_time_string(3, label = "this"))
+    self.assertEqual("[WEIGHT: 22 U @ 09:10:00]", 
+      convert_timedelta_to_uniform_time_string(timedelta(hours = 9, minutes = 10), label = "WEIGHT"))
+    self.assertEqual("[ke ke ke: 0 U @ 00:00:00]", 
+      convert_timedelta_to_uniform_time_string(timedelta(seconds = 0), label = "ke ke ke"))
+    self.assertEqual("[0 sOmE lAbEl $: 8.757 U @ 03:38:56]",
+      convert_timedelta_to_uniform_time_string(timedelta(hours = 3, minutes = 38, seconds = 56), label = "0 sOmE lAbEl $"))
+    self.assertEqual("[$#@!%: 295.432 U @ 123:05:48]",
+      convert_timedelta_to_uniform_time_string(timedelta(seconds = 443148), label = "$#@!%"))
+
   def tearDown(self):
     pass
 
