@@ -79,3 +79,9 @@ def convert_timedelta_to_uniform_time_string(source_timedelta, label = None):
   (hrs, mins) = divmod(rest, MINUTES_IN_HOUR)
 
   return UNIFORM_TIME_STRING.format(units, hrs, mins, secs) if not label else LABELED_UNIFORM_TIME_STRING.format(label, units, hrs, mins, secs)
+
+def forward_number_from_argparse(number):
+  try:
+    return float(number)
+  except ValueError:
+    return number
