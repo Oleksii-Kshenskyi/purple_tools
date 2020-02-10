@@ -7,7 +7,6 @@ from scripts.utils.time.constants import TIME_ARGUMENTS_COMMAND_HELP
 from scripts.utils.time.constants import DEFAULT_LABEL
 from scripts.utils.time.constants import TIME_ARGUMENTS_LABEL_HELP
 from scripts.utils.constants import PARSER_IDENTIFIER_NAME
-from scripts.utils.time.features import add_timedeltas
 from scripts.utils.time.conversions import forward_number_from_argparse
 from scripts.calculate.pttime import construct_uniform_time_string
 from scripts.calculate.pttime import get_timedelta_sum_as_uniform_time_sting
