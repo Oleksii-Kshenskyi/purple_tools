@@ -89,6 +89,24 @@ class TestTimeParser(unittest.TestCase):
     execution_result = self.parser.execute_command(parse_result)
     self.assertEqual("[WEIGHT: 1 U @ 00:25:00]", execution_result)
 
+  def test_time_parser_executes_subtract_subcommand(self):
+    parse_result = self.parser.parser.parse_args([self.parser.subcommand_name_subtract, "108:64:1550", "00:25:00", "00:50:00"])
+    execution_result = self.parser.execute_command(parse_result)
+    self.assertEqual("[259.793 U @ 108:14:50]", execution_result)
+
+    parse_result = self.parser.parser.parse_args([self.parser.subcommand_name_subtract, "00:25:00"])
+    execution_result = self.parser.execute_command(parse_result)
+    self.assertEqual("[1 U @ 00:25:00]", execution_result)
+
+    parse_result = self.parser.parser.parse_args([self.parser.subcommand_short_name_subtract, "1h", "10m", "25m"])
+    execution_result = self.parser.execute_command(parse_result)
+    self.assertEqual("[1 U @ 00:25:00]", execution_result)
+
+  def test_time_parser_executes_subtract_subcommand_with_label(self):
+    parse_result = self.parser.parser.parse_args([self.parser.subcommand_name_subtract, "1", "00:10:00", "14m", self.parser.optional_name_label])
+    execution_result = self.parser.execute_command(parse_result)
+    self.assertEqual(f"[{DEFAULT_LABEL}: 0.04 U @ 00:01:00]", execution_result)
+
   def tearDown(self):
     pass
 
