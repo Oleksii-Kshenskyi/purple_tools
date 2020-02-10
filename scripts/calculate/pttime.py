@@ -24,3 +24,13 @@ def get_timedelta_sum_as_uniform_time_sting(source_list, label = None):
     timedelta_sum += timedelta_item
 
   return convert_timedelta_to_uniform_time_string(timedelta_sum, label)
+
+def get_timedelta_diff_as_uniform_time_sting(source_list, label = None):
+  basis = convert_to_timedelta(forward_number_from_argparse(source_list[0]))
+  timedelta_diff = basis if basis else timedelta(seconds = 0)
+  for source_item in source_list[1:]:
+    converted = convert_to_timedelta(forward_number_from_argparse(source_item))
+    timedelta_item = converted if converted else timedelta(seconds = 0)
+    timedelta_diff -= timedelta_item
+
+  return convert_timedelta_to_uniform_time_string(timedelta_diff, label)

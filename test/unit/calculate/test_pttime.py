@@ -3,6 +3,7 @@ from datetime import timedelta
 
 from scripts.calculate.pttime import construct_uniform_time_string
 from scripts.calculate.pttime import get_timedelta_sum_as_uniform_time_sting
+from scripts.calculate.pttime import get_timedelta_diff_as_uniform_time_sting
 from scripts.utils.time.constants import UNIFORM_TIME_STRING_DEFAULT
 from scripts.utils.time.constants import labeled_uniform_time_string_default
 from scripts.utils.time.constants import DEFAULT_LABEL
@@ -41,6 +42,19 @@ class TestTimeCalculation(unittest.TestCase):
 
     self.assertEqual(labeled_uniform_time_string_default("WEIGHT"), get_timedelta_sum_as_uniform_time_sting(["kek", "kek", "kekekk", "$$@@#!"], "WEIGHT"))
     self.assertEqual("[label: 1 U @ 00:25:00]", get_timedelta_sum_as_uniform_time_sting([0.5, 0.5], "label"))
+
+  def test_constructs_uniform_time_string_after_subtraction(self):
+    self.assertEqual(UNIFORM_TIME_STRING_DEFAULT, get_timedelta_diff_as_uniform_time_sting(["3m", "2m", "1m"]))
+    self.assertEqual("[0.007 U @ 00:00:10]", get_timedelta_diff_as_uniform_time_sting(["30s", "kek", "20s"]))
+    self.assertEqual("[0.04 U @ 00:01:00]", get_timedelta_diff_as_uniform_time_sting([10, "4h", "00:09:00", "kek"]))
+    self.assertEqual("[0.04 U @ 00:01:00]", get_timedelta_diff_as_uniform_time_sting(["0:1:0"]))
+
+    self.assertEqual(UNIFORM_TIME_STRING_DEFAULT, get_timedelta_diff_as_uniform_time_sting([0, 0, 0, 0, "kek"]))
+    self.assertEqual(UNIFORM_TIME_STRING_DEFAULT, get_timedelta_diff_as_uniform_time_sting(["0m"]))
+    self.assertEqual(UNIFORM_TIME_STRING_DEFAULT, get_timedelta_diff_as_uniform_time_sting(["kek", "kek", "kekekk", "$$@@#!"]))
+
+    self.assertEqual(labeled_uniform_time_string_default("WEIGHT"), get_timedelta_diff_as_uniform_time_sting(["kek", "kek", "kekekk", "$$@@#!"], "WEIGHT"))
+    self.assertEqual("[label: 1 U @ 00:25:00]", get_timedelta_diff_as_uniform_time_sting([2, "00:25:00"], "label"))
 
   def tearDown(self):
       pass
