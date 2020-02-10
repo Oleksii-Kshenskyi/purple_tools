@@ -23,5 +23,5 @@ MINUTES_IN_HOUR = 60
 # Various help messages and descriptions
 TIME_COMMAND_DESCRIPTION = "Time command is responsible for various calculations related to time.\nOutputs time in the format of a time string of '[<P> U @ HH:MM:SS]', where:\n<P> is a floating point number of pomodoro units the HH:MM:SS time string is equal to."
 TIME_ARGUMENTS_TIME_HELP = "Time to work with (one or more arguments expected).\nCan be either <HOURS>:<MINUTES>:<SECONDS> or <number_of_pomodoro_units>."
-TIME_ARGUMENTS_COMMAND_HELP = "Various subcommands the time command supports.\n\t=> print | p: print either HH:MM:SS or <P> as the [<P> U @ HH:MM:SS] time string."
+TIME_ARGUMENTS_COMMAND_HELP = "Various subcommands the time command supports.\n\t=> print | p: print either HH:MM:SS or <P> as the [<P> U @ HH:MM:SS] time string.\n\t=> add   | a: add all the time values specified in the 'time' argument and print out\n\t            the result as [<P> U @ HH:MM:SS].\n\n"
 TIME_ARGUMENTS_LABEL_HELP = f"Add a helper label for clarification, so the output time string transforms to \n[<label>: <P> U @ HH:MM:SS]. Default label is '{DEFAULT_LABEL}'."
