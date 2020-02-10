@@ -10,6 +10,7 @@ from scripts.utils.constants import PARSER_IDENTIFIER_NAME
 from scripts.utils.time.conversions import forward_number_from_argparse
 from scripts.calculate.pttime import construct_uniform_time_string
 from scripts.calculate.pttime import get_timedelta_sum_as_uniform_time_sting
+from scripts.calculate.pttime import get_timedelta_diff_as_uniform_time_sting
 
 class TimeParser(AbstractParser):
   def __init__(self):
@@ -20,6 +21,8 @@ class TimeParser(AbstractParser):
     self.subcommand_short_name_print = "p"
     self.subcommand_name_add = "add"
     self.subcommand_short_name_add = "a"
+    self.subcommand_name_subtract = "subtract"
+    self.subcommand_short_name_subtract = "s"
     self.optional_name_label = "--label"
     self.optional_short_name_label = "-l"
 
@@ -29,7 +32,9 @@ class TimeParser(AbstractParser):
     self.parser.add_argument("command", choices=[self.subcommand_name_print,
                                                  self.subcommand_short_name_print,
                                                  self.subcommand_name_add,
-                                                 self.subcommand_short_name_add],
+                                                 self.subcommand_short_name_add,
+                                                 self.subcommand_name_subtract,
+                                                 self.subcommand_short_name_subtract],
                                   help=TIME_ARGUMENTS_COMMAND_HELP)
 
     self.parser.add_argument(self.name, nargs="+", help=TIME_ARGUMENTS_TIME_HELP)
@@ -52,10 +57,15 @@ class TimeParser(AbstractParser):
   def _execute_add_subcommand(self, parse_result):
     return get_timedelta_sum_as_uniform_time_sting(parse_result.time, parse_result.label)
 
+  def _execute_subtract_subcommand(self, parse_result):
+    return get_timedelta_diff_as_uniform_time_sting(parse_result.time, parse_result.label)
+
   def _get_subcommand_mapping(self):
     return {
-      self.subcommand_name_print       : self._execute_print_subcommand,
-      self.subcommand_short_name_print : self._execute_print_subcommand,
-      self.subcommand_name_add : self._execute_add_subcommand,
-      self.subcommand_short_name_add : self._execute_add_subcommand
+      self.subcommand_name_print          : self._execute_print_subcommand,
+      self.subcommand_short_name_print    : self._execute_print_subcommand,
+      self.subcommand_name_add            : self._execute_add_subcommand,
+      self.subcommand_short_name_add      : self._execute_add_subcommand,
+      self.subcommand_name_subtract       : self._execute_subtract_subcommand,
+      self.subcommand_short_name_subtract : self._execute_subtract_subcommand
     }
