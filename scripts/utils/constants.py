@@ -16,3 +16,9 @@ KIND_OF_TEST = {
 }
 
 PROJECT_DIR = os.environ['PT_PROJECT_DIR']
+
+PROGRESSION_SUM_INVALID_ARGUMENT_MESSAGE = "First argument must be <= second argument."
+BINARY_SEARCH_BOUNDS_MIXED_UP = "Upper bound in binary search must be greater than lower bound"
+BINARY_SEARCH_INTS_OF_WRONG_TYPE = "Lower bound, upper bound and step of a binary search have to be ints"
+BINARY_SEARCH_CONDITION_NOT_CALLABLE = "Exit condition of a binary search has to be a function that returns values of the BinarySearch enum"
+BINARY_SEARCH_INTS_DONT_MAKE_PROGRESSION = "Specified values of lower bound, upper bound and step in a binary search don't create a valid progression"
