@@ -32,21 +32,23 @@ def find_progression_element_satisfying_condition(lower_bound, upper_bound, step
     if current_condition == BinaryResult.MOVE_LEFT:
       current_value = (current_index - 1) * step + current_lower
       current_upper = current_value
-      current_index = current_index // 2 if (current_index % 2 == 0) else current_index // 2 + 1
-      absolute_index -= current_index
+      # current_index = (current_upper - current_lower) // step + 1
+      even_index = current_index % 2 == 0
+      current_index = current_index // 2 if even_index else current_index // 2 + 1
+      absolute_index = absolute_index - current_index if even_index else absolute_index - (current_index - 1)
       current_value = (current_index - 1) * step + current_lower
       _dump(current_index, absolute_index, current_value, current_lower, current_upper, current_condition)
     elif current_condition == BinaryResult.MOVE_RIGHT:
-      current_index += 1
-      current_value = (current_index - 1) * step + current_lower
-      current_lower = current_value
-      current_index = (current_upper - current_lower) // step + 1
+      # current_index += 1
+      # current_value = (current_index - 1) * step + current_lower
+      current_lower = ((current_index + 1) - 1) * step + current_lower # current_value
+      # current_index = (current_upper - current_lower) // step + 1
       current_index = current_index // 2 if (current_index % 2 == 0) else current_index // 2 + 1
       absolute_index += current_index
       current_value = (current_index - 1) * step + current_lower
       _dump(current_index, absolute_index, current_value, current_lower, current_upper, current_condition)
 
-  return int(absolute_index - 1)
+  return absolute_index - 1
 
 
 # def _get_pair(lower_bound, upper_bound, step):
