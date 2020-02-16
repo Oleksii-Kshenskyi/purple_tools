@@ -5,6 +5,7 @@ from scripts.utils.constants import BINARY_SEARCH_CONDITION_NOT_CALLABLE
 from scripts.utils.constants import BINARY_SEARCH_INTS_DONT_MAKE_PROGRESSION
 from scripts.utils.constants import BINARY_SEARCH_INTS_OF_WRONG_TYPE
 from scripts.utils.constants import BINARY_SEARCH_STEP_MUST_BE_POSITIVE
+from scripts.utils.constants import BINARY_SEARCH_ELEMENT_NOT_IN_PROGRESSION
 
 class BinaryResult(Enum):
   MOVE_LEFT = auto()
@@ -26,11 +27,14 @@ def find_progression_element_satisfying_condition(lower_bound, upper_bound, step
   current_lower = lower_bound
   absolute_index = current_index
 
+  old_index = -1
+  search_is_stuck = 0
+
   while current_condition != BinaryResult.OK:
+    old_index = current_index
     current_condition = condition(current_value)
 
     if current_condition == BinaryResult.MOVE_LEFT:
-      old_index = current_index
       (current_index, current_value) = _bisect_once(current_index, current_lower, step)
       absolute_index = _advance_absolute_index(absolute_index, current_index, current_condition, old_index)
 
@@ -39,7 +43,14 @@ def find_progression_element_satisfying_condition(lower_bound, upper_bound, step
       (current_index, current_value) = _bisect_once(current_index, current_lower, step)
       absolute_index = _advance_absolute_index(absolute_index, current_index, current_condition)
 
+    if(current_index == old_index == 1):
+      search_is_stuck += 1
+    if(search_is_stuck > 1):
+      raise ValueError(BINARY_SEARCH_ELEMENT_NOT_IN_PROGRESSION)
+
   return absolute_index - 1
+
+
 
 def _advance_absolute_index(current_absolute_index, current_index, current_condition, old_index = 0):
   if current_condition == BinaryResult.MOVE_RIGHT:

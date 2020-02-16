@@ -55,6 +55,14 @@ class TestProgressionsCalculation(unittest.TestCase):
     with self.assertRaises(ValueError):
       self.assertEqual(1, find_progression_element_satisfying_condition(26, 68, 5, self._condition_equality_31))
 
+    # this section checks that binary search raises ValueError if you're looking for an element that is not in the progression
+    with self.assertRaises(ValueError):
+      find_progression_element_satisfying_condition(2, 14, 2, self._condition_equality_3)
+    with self.assertRaises(ValueError):
+      find_progression_element_satisfying_condition(256, 2187469, 21, self._condition_equality_43937)
+    with self.assertRaises(ValueError):
+      find_progression_element_satisfying_condition(10500, 249999999999999999999999999999999999999999999510500, 500000, self._condition_equality_2141981472)
+
   def _condition_equality_3(self, searched):
     if searched < 3:
       return BinaryResult.MOVE_RIGHT

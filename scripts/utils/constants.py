@@ -23,3 +23,4 @@ BINARY_SEARCH_INTS_OF_WRONG_TYPE = "Lower bound, upper bound and step of a binar
 BINARY_SEARCH_CONDITION_NOT_CALLABLE = "Exit condition of a binary search has to be a function that returns values of the BinarySearch enum"
 BINARY_SEARCH_INTS_DONT_MAKE_PROGRESSION = "Specified values of lower bound, upper bound and step in a binary search don't create a valid progression"
 BINARY_SEARCH_STEP_MUST_BE_POSITIVE = "Value of step in progression can only be > 0."
+BINARY_SEARCH_ELEMENT_NOT_IN_PROGRESSION = "You're trying to look for an element that is not in the specified progression."
