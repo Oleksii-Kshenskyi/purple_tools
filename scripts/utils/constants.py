@@ -22,3 +22,4 @@ BINARY_SEARCH_BOUNDS_MIXED_UP = "Upper bound in binary search must be greater th
 BINARY_SEARCH_INTS_OF_WRONG_TYPE = "Lower bound, upper bound and step of a binary search have to be ints"
 BINARY_SEARCH_CONDITION_NOT_CALLABLE = "Exit condition of a binary search has to be a function that returns values of the BinarySearch enum"
 BINARY_SEARCH_INTS_DONT_MAKE_PROGRESSION = "Specified values of lower bound, upper bound and step in a binary search don't create a valid progression"
+BINARY_SEARCH_STEP_MUST_BE_POSITIVE = "Value of step in progression can only be > 0."

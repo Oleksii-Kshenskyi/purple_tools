@@ -4,6 +4,7 @@ from scripts.utils.constants import BINARY_SEARCH_BOUNDS_MIXED_UP
 from scripts.utils.constants import BINARY_SEARCH_CONDITION_NOT_CALLABLE
 from scripts.utils.constants import BINARY_SEARCH_INTS_DONT_MAKE_PROGRESSION
 from scripts.utils.constants import BINARY_SEARCH_INTS_OF_WRONG_TYPE
+from scripts.utils.constants import BINARY_SEARCH_STEP_MUST_BE_POSITIVE
 
 class BinaryResult(Enum):
   MOVE_LEFT = auto()
@@ -27,7 +28,7 @@ def find_progression_element_satisfying_condition(lower_bound, upper_bound, step
 
   while current_condition != BinaryResult.OK:
     current_condition = condition(current_value)
-    
+
     if current_condition == BinaryResult.MOVE_LEFT:
       old_index = current_index
       (current_index, current_value) = _bisect_once(current_index, current_lower, step)
@@ -62,7 +63,12 @@ def _check_args_of_binary_search(lower_bound, upper_bound, step, condition):
     raise ValueError(BINARY_SEARCH_BOUNDS_MIXED_UP)
   elif not isinstance(lower_bound, int) or not isinstance(upper_bound, int) or not isinstance(step, int):
     raise ValueError(BINARY_SEARCH_INTS_OF_WRONG_TYPE)
+  elif step <= 0:
+    raise ValueError(BINARY_SEARCH_STEP_MUST_BE_POSITIVE)
   elif not callable(condition):
     raise ValueError(BINARY_SEARCH_CONDITION_NOT_CALLABLE)
-  elif not float((upper_bound - lower_bound) / step + 1).is_integer():
+
+  index = _get_initial_index(lower_bound, upper_bound, step)
+  last_element = _get_value_by_index(index, lower_bound, step)
+  if not float((upper_bound - lower_bound) / step + 1).is_integer() or last_element != upper_bound:
     raise ValueError(BINARY_SEARCH_INTS_DONT_MAKE_PROGRESSION)

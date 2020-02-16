@@ -29,6 +29,7 @@ class TestProgressionsCalculation(unittest.TestCase):
 
     self.assertEqual(4, find_progression_element_satisfying_condition(-7, 43, 10, self._condition_equality_33))
     self.assertEqual(1, find_progression_element_satisfying_condition(26, 68, 6, self._condition_equality_32))
+    self.assertEqual(1, find_progression_element_satisfying_condition(26, 68, 7, self._condition_equality_33))
     self.assertEqual(1, find_progression_element_satisfying_condition(0, 24, 3, self._condition_equality_3))
     self.assertEqual(7, find_progression_element_satisfying_condition(0, 24, 3, self._condition_equality_21))
     self.assertEqual(1, find_progression_element_satisfying_condition(101, 909, 101, self._condition_equality_202))
@@ -46,6 +47,12 @@ class TestProgressionsCalculation(unittest.TestCase):
       find_progression_element_satisfying_condition(24, 26, 1, "Kek")
     with self.assertRaises(ValueError):
       find_progression_element_satisfying_condition(1, 7, 4, self._condition_equality_8)
+    with self.assertRaises(ValueError):
+      find_progression_element_satisfying_condition(1, 7, -1, self._condition_equality_8)
+    with self.assertRaises(ValueError):
+      find_progression_element_satisfying_condition(2, 26, 0, self._condition_equality_8)
+    with self.assertRaises(ValueError):
+      self.assertEqual(1, find_progression_element_satisfying_condition(26, 68, 5, self._condition_equality_31))
 
   def _condition_equality_3(self, searched):
     if searched < 3:
@@ -69,6 +76,14 @@ class TestProgressionsCalculation(unittest.TestCase):
     elif searched == 21:
       return BinaryResult.OK
     elif searched > 21:
+      return BinaryResult.MOVE_LEFT
+
+  def _condition_equality_31(self, searched):
+    if searched < 31:
+      return BinaryResult.MOVE_RIGHT
+    elif searched == 31:
+      return BinaryResult.OK
+    elif searched > 31:
       return BinaryResult.MOVE_LEFT
 
   def _condition_equality_32(self, searched):
