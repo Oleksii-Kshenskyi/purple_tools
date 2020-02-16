@@ -1,4 +1,3 @@
-from enum import Enum, auto
 from scripts.utils.constants import PROGRESSION_SUM_INVALID_ARGUMENT_MESSAGE
 from scripts.utils.constants import BINARY_SEARCH_BOUNDS_MIXED_UP
 from scripts.utils.constants import BINARY_SEARCH_CONDITION_NOT_CALLABLE
@@ -7,10 +6,7 @@ from scripts.utils.constants import BINARY_SEARCH_INTS_OF_WRONG_TYPE
 from scripts.utils.constants import BINARY_SEARCH_STEP_MUST_BE_POSITIVE
 from scripts.utils.constants import BINARY_SEARCH_ELEMENT_NOT_IN_PROGRESSION
 
-class BinaryResult(Enum):
-  MOVE_LEFT = auto()
-  OK = auto()
-  MOVE_RIGHT = auto()
+from scripts.utils.progressions.conditionals import BinaryResult, EqualityConditional
 
 def calculate_sum_of_arithmetic_progression(first_num, last_num):
   if first_num > last_num:
@@ -18,12 +14,12 @@ def calculate_sum_of_arithmetic_progression(first_num, last_num):
 
   return int((last_num - first_num + 1) * ((first_num + last_num) / 2))
 
-def find_progression_element_satisfying_condition(lower_bound, upper_bound, step, condition):
-  _check_args_of_binary_search(lower_bound, upper_bound, step, condition)
+def find_progression_element_satisfying_condition(lower_bound, upper_bound, step, conditional):
+  _check_args_of_binary_search(lower_bound, upper_bound, step, conditional)
 
   current_index = _get_initial_index(lower_bound, upper_bound, step)
   (current_index, current_value) = _bisect_once(current_index, lower_bound, step)  
-  current_condition = condition(current_value)
+  current_condition = conditional.check(current_value)
   current_lower = lower_bound
   absolute_index = current_index
 
@@ -32,7 +28,7 @@ def find_progression_element_satisfying_condition(lower_bound, upper_bound, step
 
   while current_condition != BinaryResult.OK:
     old_index = current_index
-    current_condition = condition(current_value)
+    current_condition = conditional.check(current_value)
 
     if current_condition == BinaryResult.MOVE_LEFT:
       (current_index, current_value) = _bisect_once(current_index, current_lower, step)
@@ -69,14 +65,14 @@ def _bisect_once(current_index, lower_bound, step):
   new_value = _get_value_by_index(new_index, lower_bound, step)
   return (new_index, new_value)
 
-def _check_args_of_binary_search(lower_bound, upper_bound, step, condition):
+def _check_args_of_binary_search(lower_bound, upper_bound, step, conditional):
   if(upper_bound < lower_bound):
     raise ValueError(BINARY_SEARCH_BOUNDS_MIXED_UP)
   elif not isinstance(lower_bound, int) or not isinstance(upper_bound, int) or not isinstance(step, int):
     raise ValueError(BINARY_SEARCH_INTS_OF_WRONG_TYPE)
   elif step <= 0:
     raise ValueError(BINARY_SEARCH_STEP_MUST_BE_POSITIVE)
-  elif not callable(condition):
+  elif not hasattr(conditional, "check") or not callable(conditional.check):
     raise ValueError(BINARY_SEARCH_CONDITION_NOT_CALLABLE)
 
   index = _get_initial_index(lower_bound, upper_bound, step)
