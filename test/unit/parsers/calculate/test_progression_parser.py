@@ -5,7 +5,7 @@ from scripts.parsers.calculate.progression_parser import CalculateProgressionPar
 from scripts.utils.constants import PARSER_IDENTIFIER_NAME
 from scripts.utils.constants import LIMITER_PROGRESSION_RESULT, SUM_PROGRESSION_RESULT
 
-class TestPurpleParser(unittest.TestCase):
+class TestCalculateProgressionParser(unittest.TestCase):
   
   def setUp(self):
     self.parser = CalculateProgressionParser()

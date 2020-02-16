@@ -27,6 +27,7 @@ class TestProgressionsCalculation(unittest.TestCase):
     self.assertEqual(3, find_progression_element_satisfying_condition(2, 14, 2, EqualityConditional(8)))
     self.assertEqual(2, find_progression_element_satisfying_condition(2, 17, 3, EqualityConditional(8)))
     self.assertEqual(6, find_progression_element_satisfying_condition(-16, 12, 4, EqualityConditional(8)))
+    self.assertEqual(14, find_progression_element_satisfying_condition(1, 15, 1, EqualityConditional(15)))
 
     self.assertEqual(4, find_progression_element_satisfying_condition(-7, 43, 10, EqualityConditional(33)))
     self.assertEqual(1, find_progression_element_satisfying_condition(26, 68, 6, EqualityConditional(32)))
@@ -66,7 +67,15 @@ class TestProgressionsCalculation(unittest.TestCase):
 
   def test_remainder_and_upper_bound_calculated_correctly_through_limiter(self):
     self.assertEqual((13, 9), determine_progression_parameters_by_sum_limiter(100))
+    self.assertEqual((25, 10), determine_progression_parameters_by_sum_limiter(335))
+    self.assertEqual((31, 5), determine_progression_parameters_by_sum_limiter(501))
+    self.assertEqual((81, 12), determine_progression_parameters_by_sum_limiter(3333))
+
     self.assertEqual((10, 0), determine_progression_parameters_by_sum_limiter(55))
+    self.assertEqual((15, 0), determine_progression_parameters_by_sum_limiter(120))
+    self.assertEqual((20, 0), determine_progression_parameters_by_sum_limiter(210))
+    self.assertEqual((100, 0), determine_progression_parameters_by_sum_limiter(5050))
+
     self.assertEqual((23041, 10104), determine_progression_parameters_by_sum_limiter(265465465))
     self.assertEqual((27158623, 1339473), determine_progression_parameters_by_sum_limiter(368795416546849))
     self.assertEqual((33587647923147296813023991, 18435338379684661078750468), determine_progression_parameters_by_sum_limiter(564065046504650460460540654065046546540650456046504))
