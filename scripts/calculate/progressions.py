@@ -59,7 +59,7 @@ def determine_progression_parameters_by_sum_limiter(sum_limiter):
   last_element = find_progression_element_satisfying_condition(1, upper_search_bound, 1, conditional) + 1
   sum_of_progression = conditional._calculate_nth_sum_of_progression(last_element)
   remainder = sum_limiter - sum_of_progression
-  print(f"SUM!!: {sum_of_progression}")
+
   return (last_element, remainder)
 
 
