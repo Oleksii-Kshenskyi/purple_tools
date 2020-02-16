@@ -1,3 +1,5 @@
+from math import sqrt, ceil
+
 from scripts.utils.constants import PROGRESSION_SUM_INVALID_ARGUMENT_MESSAGE
 from scripts.utils.constants import BINARY_SEARCH_BOUNDS_MIXED_UP
 from scripts.utils.constants import BINARY_SEARCH_CONDITION_NOT_CALLABLE
@@ -5,8 +7,10 @@ from scripts.utils.constants import BINARY_SEARCH_INTS_DONT_MAKE_PROGRESSION
 from scripts.utils.constants import BINARY_SEARCH_INTS_OF_WRONG_TYPE
 from scripts.utils.constants import BINARY_SEARCH_STEP_MUST_BE_POSITIVE
 from scripts.utils.constants import BINARY_SEARCH_ELEMENT_NOT_IN_PROGRESSION
+from scripts.utils.constants import LIMITER_PROGRESSION_LIMITER_IS_INCORRECT
 
-from scripts.utils.progressions.conditionals import BinaryResult, EqualityConditional
+from scripts.utils.progressions.conditionals import BinaryResult, LimiterConditional
+
 
 def calculate_sum_of_arithmetic_progression(first_num, last_num):
   if first_num > last_num:
@@ -45,6 +49,18 @@ def find_progression_element_satisfying_condition(lower_bound, upper_bound, step
       raise ValueError(BINARY_SEARCH_ELEMENT_NOT_IN_PROGRESSION)
 
   return absolute_index - 1
+
+def determine_progression_parameters_by_sum_limiter(sum_limiter):
+  if(sum_limiter < 1):
+    raise ValueError(LIMITER_PROGRESSION_LIMITER_IS_INCORRECT)
+
+  upper_search_bound = int(ceil(sqrt(sum_limiter))) * 2
+  conditional = LimiterConditional(sum_limiter)
+  last_element = find_progression_element_satisfying_condition(1, upper_search_bound, 1, conditional) + 1
+  sum_of_progression = conditional._calculate_nth_sum_of_progression(last_element)
+  remainder = sum_limiter - sum_of_progression
+  print(f"SUM!!: {sum_of_progression}")
+  return (last_element, remainder)
 
 
 

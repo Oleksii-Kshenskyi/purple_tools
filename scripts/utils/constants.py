@@ -24,3 +24,5 @@ BINARY_SEARCH_CONDITION_NOT_CALLABLE = "Exit condition of a binary search has to
 BINARY_SEARCH_INTS_DONT_MAKE_PROGRESSION = "Specified values of lower bound, upper bound and step in a binary search don't create a valid progression"
 BINARY_SEARCH_STEP_MUST_BE_POSITIVE = "Value of step in progression can only be > 0."
 BINARY_SEARCH_ELEMENT_NOT_IN_PROGRESSION = "You're trying to look for an element that is not in the specified progression."
+
+LIMITER_PROGRESSION_LIMITER_IS_INCORRECT = "Progression limiter can only be positive."

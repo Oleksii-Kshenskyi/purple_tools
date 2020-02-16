@@ -3,6 +3,7 @@ import unittest
 from scripts.utils.progressions.conditionals import EqualityConditional
 from scripts.calculate.progressions import calculate_sum_of_arithmetic_progression
 from scripts.calculate.progressions import find_progression_element_satisfying_condition
+from scripts.calculate.progressions import determine_progression_parameters_by_sum_limiter
 
 class TestProgressionsCalculation(unittest.TestCase):
   
@@ -62,6 +63,29 @@ class TestProgressionsCalculation(unittest.TestCase):
       find_progression_element_satisfying_condition(256, 2187469, 21, EqualityConditional(43937))
     with self.assertRaises(ValueError):
       find_progression_element_satisfying_condition(10500, 249999999999999999999999999999999999999999999510500, 500000, EqualityConditional(249999999999999999999999999999999999999999998510501))
+
+  def test_remainder_and_upper_bound_calculated_correctly_through_limiter(self):
+    self.assertEqual((13, 9), determine_progression_parameters_by_sum_limiter(100))
+    self.assertEqual((10, 0), determine_progression_parameters_by_sum_limiter(55))
+    self.assertEqual((23041, 10104), determine_progression_parameters_by_sum_limiter(265465465))
+    self.assertEqual((27158623, 1339473), determine_progression_parameters_by_sum_limiter(368795416546849))
+    self.assertEqual((33587647923147296813023991, 18435338379684661078750468), determine_progression_parameters_by_sum_limiter(564065046504650460460540654065046546540650456046504))
+
+    self.assertEqual((1, 0), determine_progression_parameters_by_sum_limiter(1))
+    self.assertEqual((1, 1), determine_progression_parameters_by_sum_limiter(2))
+    self.assertEqual((2, 0), determine_progression_parameters_by_sum_limiter(3))
+    self.assertEqual((2, 1), determine_progression_parameters_by_sum_limiter(4))
+    self.assertEqual((2, 2), determine_progression_parameters_by_sum_limiter(5))
+    self.assertEqual((3, 0), determine_progression_parameters_by_sum_limiter(6))
+    self.assertEqual((3, 1), determine_progression_parameters_by_sum_limiter(7))
+    self.assertEqual((3, 2), determine_progression_parameters_by_sum_limiter(8))
+    self.assertEqual((3, 3), determine_progression_parameters_by_sum_limiter(9))
+    self.assertEqual((4, 0), determine_progression_parameters_by_sum_limiter(10))
+
+    with self.assertRaises(ValueError):
+      determine_progression_parameters_by_sum_limiter(-3)
+    with self.assertRaises(ValueError):
+      determine_progression_parameters_by_sum_limiter(0)
 
   def tearDown(self):
       pass
