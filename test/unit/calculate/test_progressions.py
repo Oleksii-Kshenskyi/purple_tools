@@ -38,6 +38,7 @@ class TestProgressionsCalculation(unittest.TestCase):
     self.assertEqual(429, find_progression_element_satisfying_condition(1037, 100937, 100, self._condition_equality_43937))
     self.assertEqual(2073455, find_progression_element_satisfying_condition(102457, 2141981472, 1033, self._condition_equality_2141981472))
     self.assertEqual(2, find_progression_element_satisfying_condition(10500, 249999999999999999999999999999999999999999999510500, 500000, self._condition_equality_1010500))
+    self.assertEqual(499999999999999999999999999999999999999999997, find_progression_element_satisfying_condition(10500, 249999999999999999999999999999999999999999999510500, 500000, self._condition_equality_bignum))
 
     with self.assertRaises(ValueError):
       find_progression_element_satisfying_condition(26, 24, 1, self._condition_equality_33)
@@ -142,6 +143,15 @@ class TestProgressionsCalculation(unittest.TestCase):
       return BinaryResult.OK
     elif searched > 2141981472:
       return BinaryResult.MOVE_LEFT
+
+  def _condition_equality_bignum(self, searched):
+    if searched < 249999999999999999999999999999999999999999998510500:
+      return BinaryResult.MOVE_RIGHT
+    elif searched == 249999999999999999999999999999999999999999998510500:
+      return BinaryResult.OK
+    elif searched > 249999999999999999999999999999999999999999998510500:
+      return BinaryResult.MOVE_LEFT
+
 
   def tearDown(self):
       pass
