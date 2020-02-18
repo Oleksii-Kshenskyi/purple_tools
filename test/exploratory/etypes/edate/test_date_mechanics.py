@@ -12,7 +12,7 @@ class TestDateMechanics(unittest.TestCase):
 
     self.assertEqual("02/18/20", date(year = 2020, month = 2, day = 18).strftime("%m/%d/%y"))
     self.assertEqual("02/18/2020", date(year = 2020, month = 2, day = 18).strftime("%m/%d/%Y"))
-    self.assertEqual("01/01/0001", date(year = 1, month = 1, day = 1).strftime("%m/%d/%Y"))
+    self.assertEqual("01/01/0001", date(year = 1, month = 1, day = 1).strftime("%m/%d/%G"))
     
     self.assertEqual("9999-01-01", date(year = 9999, month = 1, day = 1).isoformat())
     with self.assertRaises(ValueError):
