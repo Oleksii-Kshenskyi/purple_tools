@@ -16,6 +16,11 @@ DEFAULT_LABEL = 'WEIGHT'
 
 ROUND_UNITS_TO = 3
 
+DATE_DIFF_START = "The difference between {} and {} is "
+DATE_DIFF_YEARS = "{} years"
+DATE_DIFF_MONTHS = "{} months"
+DATE_DIFF_DAYS = "{} days"
+
 # A section for sizes of different time units
 SECONDS_IN_MINUTE = 60
 MINUTES_IN_HOUR = 60
