@@ -1,6 +1,6 @@
 import os
 
-PURPLE_DESCRIPTION = "A collection of various utilities called Purple Tools."
+PURPLE_DESCRIPTION = "A collection of various utilities called Purple Tools. Call 'purple.py <positional argument> -h' for additional help, where <positional argument> is one of the arguments from the positional argument list below."
 
 PARSER_IDENTIFIER_NAME = "which"
 
@@ -17,7 +17,7 @@ KIND_OF_TEST = {
 
 PROJECT_DIR = os.environ['PT_PROJECT_DIR']
 
-CALCULATE_COMMAND_DESCRIPTION = "Calculate command performs various calculations, works mostly with numbers and formulas."
+CALCULATE_COMMAND_DESCRIPTION = "Calculate command performs various calculations, works mostly with numbers and formulas. Run 'purple.py c <positional argument> -h' for detailed help on subcommands, where <positional arguments> is one of the positional arguments from the list below."
 CALCULATE_ARGUMENTS_SUBCOMMANDS = "Choose which type of calculation to perform.\n\t=> progresssion | pr: perform various calculations on arithmetic progressions."
 
 PROGRESSION_SUM_INVALID_ARGUMENT_MESSAGE = "First argument must be <= second argument."
@@ -35,4 +35,4 @@ SUM_PROGRESSION_RESULT = "sum({} .. {}) = {}\n"
 PROGRESSIONS_COMMAND_DESCRIPTION = "Progression command performs various calculations on arithmetic progressions."
 PROGRESSIONS_ERROR_NO_ARGUMENT = "No arguments provided, expected progression calculation type. Please provide one of the arguments from the 'optional arguments' section."
 PROGRESSIONS_ARGUMENTS_BY_LIMITER = "Calculates arithmetic progression parameters via a progression sum limiter. Expects the limiter (an integer number) to be the only argument. Calculates a progression with first element and step equal to 1. Determines progression's last element and the sum of elements such that the sum <= the specified limiter."
-PROGRESSIONS_ARGUMENTS_BY_BOUNDS = "Calculates the sum of the arithmetic progression specified via its bounds (lower and upper bound / first and last element). Expects <lower_bound> (an integer number) to be the first argument, <upper_bound> (also an integer) to be the second argument."
+PROGRESSIONS_ARGUMENTS_BY_BOUNDS = "Calculates the sum of an arithmetic progression with step=1 specified via its bounds (lower and upper bound / first and last element). Expects <lower_bound> (an integer number) to be the first argument, <upper_bound> (also an integer) to be the second argument, where <lower bound> <= <upper bound>"
