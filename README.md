@@ -51,8 +51,6 @@ Purple Tools is licensed under BSD 0-clause license. This means that you are fre
 
   `[WEIGHT: 7.2 U @ 03:00:00]` <- default label is "WEIGHT"
 
-  `[Grocery store: 7.2 U @ 03:00:00]` <- includes a non-default label with a short explanation regarding what the time is about
-
   `$ python purple.py time subtract 30h 4:3:2 10` or `python purple.py t s 30h 4:3:2 10`
 
   `[52.279 U @ 21:46:58]` <- will properly convert `30h` to `[72 U @ 30:00:00]`, `4:3:2` to `[9.721 U @ 04:03:02]` and `10` to `[10 U @ 04:10:00]` and subtract `4:3:2` and `10` from `30h`.
@@ -119,16 +117,20 @@ Purple Tools is licensed under BSD 0-clause license. This means that you are fre
                                            ^^^^
   ```
 
-  This is a known bug where some of the last digits in the sum in the `--by-bounds` case will be calculated incorrectly. This happens due to `--by-bounds`'s reliance on floats. In the future this will have to be rewritten into using purely Python's unlimited int as `--by-limiter` already does.
+  This is a known bug (see issue [#38](https://github.com/Oleksii-Kshenskyi/purple_tools/issues/38)) where some of the last digits in the sum in the `--by-bounds` case will be calculated incorrectly. This happens due to `--by-bounds`'s reliance on floats. In the future this will have to be rewritten into using purely Python's unlimited int as `--by-limiter` already does.
 
   ## Additional help
 
   There are also quite a few extensive help messages in Purple Tools itself in case this help is not enough.
 
   `$ python purple.py -h` <- General help for the entire Purple Tools project
+
   `$ python purple.py test -h` <- help with the test module
+
   `$ python purple.py time -h` <- help with the time module
+
   `$ python purple.py calculate -h` <- help with the calculate module
+
   `$ python purple.py calculate progression -h` <- help with the progression module
 
   ^ Remember that you can also use short module names like `t` for `time`, `ts` for `test`, `c` for `calculate` and `pr` for `progression`.
@@ -142,13 +144,14 @@ Purple Tools is licensed under BSD 0-clause license. This means that you are fre
   - git clone https://github.com/Oleksii-Kshenskyi/purple_tools.git
   - Set environment variable `PT_PROJECT_DIR` to `<cloned repo\'s root folder>`
   - For convenience, I usually set a couple of aliases in my ~/.bashrc config file and run those via Bash afterwards:
-  ```bash
-  export PT=<your Purple Tools repo root folder>
-  export PT_PROJECT_DIR=$PT
-  alias purple="python purple.py"
-  ```
-  `$ source ~/.bashrc`
-  From this point, you can simply use `purple` instead of the full `python purple.py` to run Purple Tools.
+    ```bash
+    export PT=<your Purple Tools repo root folder>
+    export PT_PROJECT_DIR=$PT
+    alias purple="python purple.py"
+    ```
+    `$ source ~/.bashrc`
+
+    From this point, you can simply use `purple` instead of the full `python purple.py` to run Purple Tools.
   - If you're on a system that does not have a Bash by default, e.g. Windows etc., you could install a bash as the first step. On Windows, I usually use either [Cmder](https://cmder.net/) or [Git Bash](https://git-scm.com/download/win).
 
   ## The 2020 Challenge
