@@ -24,46 +24,69 @@ Purple Tools is licensed under BSD 0-clause license. This means that you are fre
   ### Time calculations
 
   `$ python purple.py time print 30` or `python purple.py t p 30`
+
   `[30 U @ 12:30:00]` <- outputs time in pomodoro units, assuming 1 U == 00:25:00
 
   `$ python purple.py time print 30h` or `$ python purple.py t p 30h`
+
   `[72 U @ 30:00:00]` <- 30 hours in pomodoro units
 
   `$ python purple.py time print 3000s100m1h` or `python purple.py t p 3000s100m1h`
+
   `[8.4 U @ 03:30:00]` <- doesn't care about the amount of seconds/minutes being < 60, will properly convert to a `[<Pomodoro units> U @ <HH>:<MM>:<SS>]` time string, this can be used for any conversions e.g. "How much is a 1000 seconds? etc.
 
   `$ python purple.py time print 0:3000:0` or `python purple.py t p 0:3000:0`
+
   `[120 U @ 50:00:00]` <- 0:3000:0 is the same as 3000m, will properly convert to a uniform time string and show the result
 
   `$ python purple.py time print 4:3:2` or `python purple.py t p 4:3:2`
+
   `[9.721 U @ 04:03:02]` <- doesn't care about the amount of zeroes in the time value, will properly convert to a uniform time string
 
+  `$ python purple.py time print 3h --label "Grocery store"` or `python purple.py t p 3h -l "Grocery store"`
+
+  `[Grocery store: 7.2 U @ 03:00:00]` <- includes a non-default label with a short explanation regarding what the time is about
+
+  `$ python purple.py time print 3h --label` or `python purple.py t p 3h -l`
+
+  `[WEIGHT: 7.2 U @ 03:00:00]` <- default label is "WEIGHT"
+
+  `[Grocery store: 7.2 U @ 03:00:00]` <- includes a non-default label with a short explanation regarding what the time is about
+
   `$ python purple.py time subtract 30h 4:3:2 10` or `python purple.py t s 30h 4:3:2 10`
+
   `[52.279 U @ 21:46:58]` <- will properly convert `30h` to `[72 U @ 30:00:00]`, `4:3:2` to `[9.721 U @ 04:03:02]` and `10` to `[10 U @ 04:10:00]` and subtract `4:3:2` and `10` from `30h`.
 
   `$ python purple.py time subtract 1h 2h30m` or `python purple.py t s 1h 2h30m`
+
   `[-3.6 U @ -2:30:00]` <- known bug, this happens due to how timedelta internally works in Python. This can be easily fixed by using Python's builtin abs() function for taking an absolute value of the subtraction result. Refer to issue [#36](https://github.com/Oleksii-Kshenskyi/purple_tools/issues/36) for details.
 
   `$ python purple.py time subtract 1h` or `python purple.py t s 1h`
+
   `[2.4 U @ 01:00:00]` <- subtract with one argument behaves exactly like a print would, just prints out the value.
 
   `$ python purple.py time add 1h 1s1m 3:1:2 2` or `python purple.py t a 1h 1s1m 3:1:2 2`
+
   `[11.682 U @ 04:52:03]` <- add times in various formats, correctly converts them into Python's timedelta internally and prints out the result in the uniform time string format of Purple Tools.
 
   `$ python purple.py time add 1h` or `python purple.py t a 1h`
+
   `[2.4 U @ 01:00:00]` <- add with one argument behaves exactly like a print would, just prints out the value.
 
   ### Testing
 
   `$ python purple.py test unit` or `$ python purple.py ts u`
+
   *runs all unit tests, currently 41 of them, to test the application*
 
   `$ python purple.py test exploratory` or `$ python purple.py ts e`
+
   *runs all exploratory tests, to test some of the assertions and assumptions about Python I had while developing Purple Tools*
 
   ### Calculating arithmetic progressions
 
   `$ python purple.py calculate progression --by-limiter 100` or `$ python purple.py c pr -l 100`
+
   ```
   The progression is: 1 .. 13
   Limiter-to-sum remainder: 9
@@ -71,25 +94,31 @@ Purple Tools is licensed under BSD 0-clause license. This means that you are fre
   ^ calculates an arithmetic progression's parameters where sum of all elements <= specified integer limiter, first element and step == 1. Calculates the last element (13 in this example) and the limiter-to-sum remainder. From this, one could see that the actual sum of the progression was `<limiter> - <remainder>` == `100 - 9` == `91` in this case.
 
   `$ python purple.py calculate progression --by-limiter 350000000000000000000000000` or `$ python purple.py c pr -l 350000000000000000000000000`
+
   ```
   The progression is: 1 .. 26457513110645
   Limiter-to-sum remainder: 10739237286665
   ```
+
   ^ doesn't care about how big the specified limiter is, always calculates progression parameters correctly. You could check that by calculating the actual sum via `350000000000000000000000000 - 10739237286665` and then running the same command on the resulting value (remainder should be 0):
   `$ python purple.py c pr -l 349999999999989260762713335`
+
   ```
   The progression is: 1 .. 26457513110645
   Limiter-to-sum remainder: 0
   ```
 
   `$ python purple.py calculate progression --by-bounds 3 100` or `python purple.py c pr -b 3 100`
+
   `sum(3 .. 100) = 5047` <- calculates the sum of an arithmetic progression specified by first element 3 and last element 100.
 
   `$ python purple.py calculate progression --by-bounds 1 20000000000` or `$ python purple.py c pr -b 1 20000000000`
+
   ```
   sum(1 .. 20000000000) = 200000000010000007168
                                            ^^^^
   ```
+
   This is a known bug where some of the last digits in the sum in the `--by-bounds` case will be calculated incorrectly. This happens due to `--by-bounds`'s reliance on floats. In the future this will have to be rewritten into using purely Python's unlimited int as `--by-limiter` already does.
 
   ## Additional help
@@ -101,6 +130,7 @@ Purple Tools is licensed under BSD 0-clause license. This means that you are fre
   `$ python purple.py time -h` <- help with the time module
   `$ python purple.py calculate -h` <- help with the calculate module
   `$ python purple.py calculate progression -h` <- help with the progression module
+
   ^ Remember that you can also use short module names like `t` for `time`, `ts` for `test`, `c` for `calculate` and `pr` for `progression`.
 
   **NOTE** these help messages will only work **after** you set the `PT_PROJECT_DIR` environment variable. Read below for details.
