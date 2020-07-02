@@ -27,7 +27,7 @@ Purple Tools is licensed under BSD 0-clause license. This means that you are fre
 
   `[30 U @ 12:30:00]` <- outputs time in pomodoro units, assuming 1 U == 00:25:00
 
-  `$ python purple.py time print 30h` or `$ python purple.py t p 30h`
+  `$ python purple.py time print 30h` or `$ python purple.py t p 30h`dark_hand
 
   `[72 U @ 30:00:00]` <- 30 hours in pomodoro units
 
@@ -154,7 +154,8 @@ Purple Tools is licensed under BSD 0-clause license. This means that you are fre
     From this point, you can simply use `purple` instead of the full `python purple.py` to run Purple Tools.
   - If you're on a system that does not have a Bash by default, e.g. Windows etc., you could install a bash as the first step. On Windows, I usually use either [Cmder](https://cmder.net/) or [Git Bash](https://git-scm.com/download/win).
 
-  ## The 2020 Challenge
+  ## Useful links
 
   For precise statistics on estimations and time spent on this project, please refer to issue [#25](https://github.com/Oleksii-Kshenskyi/purple_tools/issues/25) of this project.
+  
   For the kanban board project of this repo, visit [here](https://github.com/Oleksii-Kshenskyi/purple_tools/projects/1).
